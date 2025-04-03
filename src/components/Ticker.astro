@@ -1,0 +1,142 @@
+---
+
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Ghost Runner Pizza</title>
+        <style>
+            @font-face {
+                font-family: "Apfel Grotezk";
+                src: url("../assets/ApfelGrotezk-Fett.woff2") format("woff2");
+                font-weight: bold;
+            }
+
+            @font-face {
+                font-family: "Apfel Grotezk";
+                src: url("../assets/ApfelGrotezk-Mittel.woff2") format("woff2");
+                font-weight: normal;
+            }
+
+            @font-face {
+                font-family: 'Apfel Grotezk';
+                src: url('../assets/ApfelGrotezk-Regular.woff2') format('woff2');
+                font-weight: 400;
+            }
+        </style>
+
+        <style>
+            /* h2, h3, h4 {
+                margin: 0;
+	            padding: 0;
+	            border: 0;
+	            font-size: 100%;
+	            font: inherit;
+	            vertical-align: baseline;
+                font-family: "Apfel Grotezk";
+                margin-left: 0.25rem;
+            } */
+
+            .ticker-wrap {
+                width: 100%;
+                overflow: hidden;
+                white-space: nowrap;
+                height: 2.25rem;
+                background-color: #416D6F;
+                margin-top: 1rem;
+            }
+            .ticker {
+                display: flex;
+                animation: marquee 20s linear infinite;
+            }
+
+            .item {
+                display: flex;
+                padding: 0 5rem;
+                align-items: baseline;
+
+            }
+
+            /* Transition */
+            @keyframes marquee {
+                0% {
+                    transform: translateX(10rem);
+                }
+                100% {
+                    transform: translateX(-80%);
+                }
+            }
+
+            @keyframes swap {
+                0%,
+                50% {
+                    left: 0%;
+                }
+                50.01%,
+                100% {
+                    left: 100%;
+                }
+            }
+            .item > * {
+                margin: 0;
+	            padding: 0;
+	            border: 0;
+	            font-size: 100%;
+	            font: inherit;
+	            vertical-align: baseline;
+                font-family: "Apfel Grotezk";
+                margin-left: 0.25rem;
+                margin-top: 0.25rem
+
+            }
+            .item > h3 {
+                color: #F7F2DE;
+                font-size: 1.25rem;
+                font-weight: normal;
+            }
+
+            .item > h2 {
+                color: #ffffff;
+                font-size: 1.75rem;
+                font-weight: bold;
+            }
+
+            .item > h4 {
+                color: #F7F2DE;
+                font-size: 1rem;
+                font-weight: 400;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="ticker-wrap">
+            <div class="ticker">
+              <div class="item">
+                <h3>Now Available:</h3>
+                <h2>CHOCOLATE CHIP COOKIES</h2>
+              </div>
+
+              <div class="item">
+                <h3>This Week's Special:</h3>
+                <h2>FISHERMAN'S PIE</h2>
+                <h4>Garlic butter, diced mozzarella, clams, capers, fresh parsley, lemon wedge</h4>
+              </div>
+
+              <div class="item">
+                <h3>Now Available:</h3>
+                <h2>CHOCOLATE CHIP COOKIES</h2>
+              </div>
+
+              <div class="item">
+                <h3>This Week's Special:</h3>
+                <h2>FISHERMAN'S PIE</h2>
+                <h4>Garlic butter, diced mozzarella, clams, capers, fresh parsley, lemon wedge</h4>
+              </div>
+
+            </div>
+          <div>
+    </body>
+</html>

@@ -1,5 +1,11 @@
 ---
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Ticker from "../components/Ticker.astro";
+import MenuItem from "../components/MenuItem.astro";
+import alpinejs from "@astrojs/alpinejs";
 
+const pageTitle = "Menu";
 ---
 
 <html lang="en">
@@ -8,16 +14,492 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-        <a href="/">Home</a>
-        <a href="/menu/">Menu</a>
-		<a href="/about">About</a>
-		<h1>Menu here</h1>
-        <h2>.. and my new astro site</h2>
+		<title>{pageTitle}</title>
+		<style>
+			/* http://meyerweb.com/eric/tools/css/reset/ 
+		v2.0 | 20110126
+		License: none (public domain)
+		*/
 
-        <p>I am working through Astro's introductory tutorial. This is the second page on my website</p>
-        <p>This site will update as a I complete more of the tutorial.</p>
+			html,
+			body,
+			div,
+			span,
+			applet,
+			object,
+			iframe,
+			h1,
+			h2,
+			h3,
+			h4,
+			h5,
+			h6,
+			p,
+			blockquote,
+			pre,
+			a,
+			abbr,
+			acronym,
+			address,
+			big,
+			cite,
+			code,
+			del,
+			dfn,
+			em,
+			img,
+			ins,
+			kbd,
+			q,
+			s,
+			samp,
+			small,
+			strike,
+			strong,
+			sub,
+			sup,
+			tt,
+			var,
+			b,
+			u,
+			i,
+			center,
+			dl,
+			dt,
+			dd,
+			ol,
+			ul,
+			li,
+			fieldset,
+			form,
+			label,
+			legend,
+			table,
+			caption,
+			tbody,
+			tfoot,
+			thead,
+			tr,
+			th,
+			td,
+			article,
+			aside,
+			canvas,
+			details,
+			embed,
+			figure,
+			figcaption,
+			footer,
+			header,
+			hgroup,
+			menu,
+			nav,
+			output,
+			ruby,
+			section,
+			summary,
+			time,
+			mark,
+			audio,
+			video {
+				margin: 0;
+				padding: 0;
+				border: 0;
+				font-size: 100%;
+				font: inherit;
+				vertical-align: baseline;
+			}
+			/* HTML5 display-role reset for older browsers */
+			article,
+			aside,
+			details,
+			figcaption,
+			figure,
+			footer,
+			header,
+			hgroup,
+			menu,
+			nav,
+			section {
+				display: block;
+			}
+			body {
+				line-height: 1;
+			}
+			ol,
+			ul {
+				list-style: none;
+			}
+			blockquote,
+			q {
+				quotes: none;
+			}
+			blockquote:before,
+			blockquote:after,
+			q:before,
+			q:after {
+				content: "";
+				content: none;
+			}
+			table {
+				border-collapse: collapse;
+				border-spacing: 0;
+			}
+		</style>
+		<style>
+			body {
+				background-color: #f7f2de;
+			}
+
+			@font-face {
+				font-family: "Apfel Grotezk";
+				src: url("../assets/ApfelGrotezk-Satt.woff2") format("woff2");
+				font-weight: 800;
+			}
+
+			@font-face {
+				font-family: "Apfel Grotezk";
+				src: url("../assets/ApfelGrotezk-Fett.woff2") format("woff2");
+				font-weight: bold;
+			}
+
+			@font-face {
+				font-family: "Apfel Grotezk";
+				src: url("../assets/ApfelGrotezk-Mittel.woff2") format("woff2");
+				font-weight: 500;
+			}
+
+			@font-face {
+				font-family: "Apfel Grotezk";
+				src: url("../assets/ApfelGrotezk-Regular.woff2") format("woff2");
+				font-weight: 400;
+			}
+
+			@font-face {
+				font-family: "Pally-Variable";
+				src: url("../assets/Pally-Variable.woff2") format("woff2");
+				font-weight: 400 700;
+				font-display: swap;
+				font-style: normal;
+			}
+		</style>
+		<style>
+			html {
+				scroll-behavior: smooth;
+			}
+
+			nav {
+            	position: sticky;
+            	top: 0;
+            	z-index: 1000;
+            	background: #f7f2de; /* Adjust to match your design */
+            	padding: 1rem;
+            	width: 100%;
+        	}
+
+			.wrapper {
+				position: sticky;
+				display: flex;
+				flex-direction: row;
+				align-items: center;
+				width: fit-content;
+				margin: 0 auto;
+				margin-top: 3rem;
+				font-family: "Apfel Grotezk";
+				font-weight: 500;
+				font-size: 1rem;
+				margin-bottom: 5rem;
+				z-index: 999;
+
+				/* clip-path: inset(0 81% 0 8% round 1rem); */
+			}
+
+			.menu-select {
+				position: relative;
+				display: flex;
+				width: 100%;
+				justify-content: center;
+				gap: 0.5rem;
+			}
+
+			li {
+				position: relative;
+			}
+
+			li [type="radio"] {
+				display: none;
+			}
+
+			[type="radio"]:checked ~ {
+				/* border-bottom: 1px solid black; */
+			}
+
+			.tab-label {
+				display: flex;
+				height: 2rem;
+				align-items: center;
+				gap: 1rem;
+				border-radius: 100%;
+				padding: 1rem;
+				font-size: 1rem;
+				color: #002c2e;
+			}
+
+			.list-overlay {
+				background: #416d6f;
+			}
+			.clip-path-container {
+				position: absolute;
+				z-index: 10;
+				width: 100%;
+				overflow: hidden;
+				transition: clip-path 0.45s ease-in-out;
+			}
+			.overlay {
+				color: white;
+			}
+
+			#content-container {
+				margin-left: 10rem;
+			}
+
+			section > h2 {
+				font-family: "Pally-Variable", "sans serif";
+				padding: 0 5%;
+				font-weight: 600;
+				text-transform: uppercase;
+				font-size: 3.5rem;
+				letter-spacing: -0.075rem;
+			}
+
+			section > h4 {
+				font-family: "Apfel Grotezk", "sans serif";
+				color: #416d6f;
+				text-transform: uppercase;
+				font-size: 1.25rem;
+				font-weight: 500;
+			}
+
+			section > h5 {
+				font-family: "Apfel Grotezk", "sans serif";
+				color: #416d6f;
+				font-weight: 400;
+			}
+
+			.item-container {
+				margin-top: 2rem;
+				display: grid;
+				grid-template-columns: repeat(2, 1fr);
+				gap: 8rem;
+				align-items: flex-start;
+				max-width: 70%;
+			}
+
+			@media (max-width: 768px) {
+				.item-container {
+					grid-template-columns: 1fr;
+				}
+			}
+
+			.menu-container {
+				display: flex;
+				flex-direction: column;
+				align-items: center; /* Centers h2 and item-container */
+				margin-bottom: 8rem;
+			}
+		</style></head
+	>
+
+	<body>
+		<Header />
+		<Ticker />
+		<div
+			class="wrapper"
+			x-data="{
+				insetValue: '0 100% 0 0',
+				update(tab) {
+					const insetValues = {
+					pizza: '0 81.5% 0 1%',
+					salad: '0 59.5% 0 22%',
+					beverage: '0 27% 0 44.5%',
+					dessert: '0 0.5% 0 76.5%'
+				};
+				this.insetValue = insetValues[tab] || '0 100% 0 0'
+			},
+			scrollToSection(section) {
+				$nextTick(() => document.querySelector(section)?.scrollIntoView());
+
+			},
+			observeSections() {
+    			const sections = document.querySelectorAll('.menu-container');
+    			const observer = new IntersectionObserver(entries => {
+        			entries.forEach(entry => {
+            			if (entry.isIntersecting && this.activeTab !== entry.target.classList[0]) {
+                			this.update(entry.target.classList[0]); 
+            			}
+        			});
+    			}, { threshold: 0.6 }); // Adjust threshold for better accuracy
+    			sections.forEach(section => observer.observe(section));
+			}
+			
+
+			}"
+		>
+			<ul class="menu-select">
+				<li>
+					<input
+						type="radio"
+						id="pizza-tab"
+						name="menu-tabs"
+						@click="update('pizza'); scrollToSection('.pizza')"
+					/>
+					<label for="pizza-tab" class="tab-label">Pizza</label>
+				</li>
+				<li>
+					<input
+						type="radio"
+						id="salad-tab"
+						name="menu-tabs"
+						@click="update('salad'); scrollToSection('.salad')"
+					/>
+					<label for="salad-tab" class="tab-label">Salad</label>
+				</li>
+				<li>
+					<input
+						type="radio"
+						id="beverage-tab"
+						name="menu-tabs"
+						@click="update('beverage'); scrollToSection('.beverage')"
+					/>
+					<label for="beverage-tab" class="tab-label">Beverages</label
+					>
+				</li>
+				<li>
+					<input
+						type="radio"
+						id="dessert-tab"
+						name="menu-tabs"
+						@click="update('dessert'); scrollToSection('.dessert')"
+					/>
+					<label for="dessert-tab" class="tab-label">Dessert</label>
+				</li>
+			</ul>
+			<div
+				aria-hidden
+				class="clip-path-container"
+				x-bind:style="`clip-path: inset(${insetValue} round 1em)`"
+			>
+				<ul class="menu-select list-overlay">
+					<li>
+						<label for="pizza-tab" class="tab-label overlay"
+							>Pizza</label
+						>
+					</li>
+					<li>
+						<label for="salad-tab" class="tab-label overlay"
+							>Salad</label
+						>
+					</li>
+					<li>
+						<label for="beverage-tab" class="tab-label overlay"
+							>Beverages</label
+						>
+					</li>
+					<li>
+						<label for="dessert-tab" class="tab-label overlay"
+							>Dessert</label
+						>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="content-container">
+			<section class="pizza menu-container">
+				<h2>Pizza</h2>
+				<h4>Additional side sauces for $1.50:</h4>
+				<h5>Calabrian Chili Cream, Hot Cane Syrup, Ranch</h5>
+				<div class="item-container">
+					<MenuItem
+						name="Cheese"
+						description="Tomato sauce and diced mozzarella"
+						price={14.0}
+					/>
+					<MenuItem
+						name="Margherita"
+						description="Classic pizza with tomato sauce, mozzarella, fresh basil"
+						price={15.0}
+					/>
+					<MenuItem
+						name="Pepperoni"
+						description="Red sauce, mozzarella, pepperoni"
+						price={16.0}
+					/>
+					<MenuItem
+						name="Sausage"
+						description="Vodka sauce, Mozzerella, spicy ground sausage from Durden's Prime Meats"
+						price={16.0}
+					/>
+					<MenuItem
+						name="Pesto"
+						description="Pesto base, mozzarella, ricotta cheese"
+						price={16.0}
+					/>
+					<MenuItem
+						name="Garlic"
+						description="Olive oil, housemade garlic paste, mozzarella, goat cheese, capers, lemon-tossed arugala"
+						price={17.0}
+					/>
+					<MenuItem
+						name="Philly Cheese Steak"
+						description="Olive oil, provolone, mozz, grilled onions, sauteed bell peppers, steak"
+						limitedTime={true}
+						price={18.0}
+					/>
+				</div>
+			</section>
+			<section class="salad menu-container">
+				<h2>Salad</h2>
+				<div class="item-container">
+					<MenuItem
+						name="Kale Caesar Salad"
+						description="Kale salad with housemade Caesar dressing, croutons, and fresh parmesan"
+						price={9.0}
+					/>
+				</div>
+			</section>
+			<section class="beverage menu-container">
+				<h2>Beverages</h2>
+				<h4>Alcohol rotates frequently</h4>
+				<div class="item-container">
+					<MenuItem
+						name="Soda"
+						description="Coke / Diet Coke / Sprite / Fanta / Root Beer"
+						price={3.0}
+					/>
+					<MenuItem
+						name="Yoohoo"
+						description="Chocolate milk"
+						price={3.0}
+					/>
+					<MenuItem
+						name="Topo Chico"
+						description="Sparkling mineral water"
+						price={3.0}
+					/>
+					<MenuItem name="Coke" description="" price={3.0} />
+				</div>
+			</section>
+			<section class="dessert menu-container">
+				<h2>Dessert</h2>
+				<div class="item-container">
+					<MenuItem
+						name="Chocolate Chip Cookie"
+						description=""
+						price={3.0}
+					/>
+				</div>
+			</section>
+		</div>
 	</body>
 </html>

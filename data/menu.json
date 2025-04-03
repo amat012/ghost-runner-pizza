@@ -1,0 +1,33 @@
+[
+    {
+        "id": 1,
+        "category": "Pizza",
+        "options": [
+            {
+                "name": "Margherita",
+                "description": "red sauce, mozzerella, basil",
+                "price": 15
+            },
+            {
+                "name":"Pepperoni",
+                "description":"red sauce, mozzerella, pepperoni",
+                "price": 16
+            },
+            {
+                "name":"Sausage",
+                "description":"vodka sauce, mozzerella, Durden's Spicy Sausage",
+                "price": 17
+            },
+            {
+                "name":"Pesto",
+                "description":"olive oil, mozzerella, ricotta, pesto",
+                "price": 17
+            },
+            {
+                "name":"Garlic",
+                "description":"olive oil, goat cheese, mozzerella, garlic, capers, lemon-tossed arugula",
+                "price": 18
+            }
+        ]
+    }
+]

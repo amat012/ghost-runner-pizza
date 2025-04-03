@@ -1,5 +1,8 @@
 ---
+import '../styles/global.css';
+import Header from '../components/Header.astro'
 
+const pageTitle = "About";
 ---
 
 <html lang="en">
@@ -8,16 +11,15 @@
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
+		<title>{pageTitle}</title>
+		<style>
+			h1 {
+			  color: purple;
+			  font-size: 4rem;
+			}
+		  </style>
+		</head>
 	<body>
-        <a href="/">Home</a>
-        <a href="/menu/">Menu</a>
-		<a href="/about">About</a>
-		<h1>About me</h1>
-        <h2>.. and my new astro site</h2>
-
-        <p>I am working through Astro's introductory tutorial. This is the THIRD page on my website</p>
-        <p>This site will update as a I complete more of the tutorial.</p>
+        <Header />
 	</body>
 </html>
