@@ -1,5 +1,5 @@
 ---
-
+import '../styles/global.css';
 ---
 
 <!DOCTYPE html>
@@ -13,6 +13,7 @@
             display: flex;
             justify-content: flex-end;
             align-items: center;
+            margin-top: 1rem;
         }
 
         .nav-item {
@@ -21,45 +22,10 @@
         }
         
     </style>
-    <style>
-        @font-face {
-            font-family: 'Apfel Grotezk';
-            src: url('../assets/ApfelGrotezk-Satt.woff2') format('woff2');
-            font-weight: bolder;
-        }
-
-        @font-face {
-            font-family: 'Apfel Grotezk';
-            src: url('../assets/ApfelGrotezk-Fett.woff2') format('woff2');
-            font-weight: bold;
-        }
-
-        @font-face {
-            font-family: 'Apfel Grotezk';
-            src: url('../assets/ApfelGrotezk-Mittel.woff2') format('woff2');
-            font-weight: normal;
-        }
-
-        @font-face {
-            font-family: 'Apfel Grotezk';
-            src: url('../assets/ApfelGrotezk-Regular.woff2') format('woff2');
-            font-weight: lighter;
-        }
-        @font-face {
-            font-family: "Victor Mono";
-            src: url("../assets/VictorMono-Light.woff2") format("woff2");
-            font-weight: light;
-        }
-        @font-face {
-            font-family: "Victor Mono";
-            src: url("../assets/VictorMono-Medium.woff2") format("woff2");
-            font-weight: normal;
-        }
-    </style>
 
     <style>
 
-        .button {
+        .nav-button {
             position: relative;
             display: inline-block;
             font-size: 2rem;
@@ -74,7 +40,7 @@
             transition: background-color 0.3s ease, color 0.3s ease;
         }
 
-        .button::before {
+        .nav-button::before {
             content: "";
             position: absolute;
             width: 100%;
@@ -83,7 +49,7 @@
         }
 
         /* Always visible bottom line */
-        .button::after {
+        .nav-button::after {
             content: "";
             position: absolute;
             bottom: 0;
@@ -95,13 +61,13 @@
         }
 
         /* Hover Effects */
-        .button:hover {
+        .nav-button:hover {
             color: #fff; /* Change text color to white */
             transition: height 0.3s ease-in-out, background-color 0.3s ease-in-out;
         }
 
         /* Expanding line to form a rectangle on hover */
-        .button:hover::after {
+        .nav-button:hover::after {
             height: 100%; /* Expands the line upwards */
             background-color: #002C2E;
             z-index: -1;
@@ -112,10 +78,10 @@
     <navbar>
         <ul class="nav-list">
             <li class="nav-item">
-                <a href="/menu" class="button">Menu</a>
+                <a href="/menu" class="nav-button">Menu</a>
             </li>
             <li class="nav-item">
-                <a href="/order" class="button">Order Online</a>
+                <a href="/order" class="nav-button">Order Online</a>
             </li>
         </ul>
 
