@@ -286,7 +286,7 @@ const pageTitle = "Menu";
 				<h2>Salad</h2>
 				<div class="item-container">
 					<MenuItem
-						name="Kale Caesar Salad"
+						name="Kale Caesar"
 						description="Kale salad with housemade Caesar dressing, croutons, and fresh parmesan"
 						price={9.0}
 					/>
@@ -294,12 +294,17 @@ const pageTitle = "Menu";
 			</section>
 			<section class="beverage menu-container">
 				<h2>Beverages</h2>
-				<h4>Alcohol rotates frequently</h4>
+				<h4>More wine and beer options available in house</h4>
 				<div class="item-container">
 					<MenuItem
-						name="Soda"
-						description="Coke / Diet Coke / Sprite / Fanta / Root Beer"
+						name="Bottled Soda"
+						description="Coke / Sprite / Fanta / Root Beer"
 						price={3.0}
+					/>
+					<MenuItem
+						name="Canned Soda"
+						description="Diet Coke / Coke Zero"
+						price={2.0}
 					/>
 					<MenuItem
 						name="Yoohoo"
@@ -311,7 +316,42 @@ const pageTitle = "Menu";
 						description="Sparkling mineral water"
 						price={3.0}
 					/>
-					<MenuItem name="Coke" description="" price={3.0} />
+					<MenuItem
+						name="Miller High Life Pony"
+						description="Crisp and light in a 7 oz. pony bottle. Bucket of 6 available"
+						price={2.0}
+					/>
+					<MenuItem
+						name="Coors Banquet"
+						description="Rich, golden lager with a smooth finish"
+						price={4.0}
+					/>
+					<MenuItem
+					name="Miller Lite"
+					description="Light lager with low bitterness and subtle taste"
+					price={4.0}
+					/>
+					<MenuItem
+					name="Modelo"
+					description="Smooth, well-balanced Mexican lager with just a touch of sweetness"
+					price={5.0}
+					/>
+					<MenuItem
+					name="Tropicália"
+					description="Creature Comforts' signature IPA. Balanced, juicy, with citrus, tropical fruit, and a hint of bitterness"
+					price={6.0}
+					/>
+					<MenuItem
+					name="Samuel Smith's Cider"
+					description="British medium-dry sparkling cider with light body and clean apple flavor"
+					price={8.0}
+					/>
+					<MenuItem
+					name="Painkiller"
+					description="Frozen cocktail with rum, pineapple juice, orange juice, and cream of coconut "
+					price={12.0}
+					limitedTime={true}
+					/>
 				</div>
 			</section>
 			<section class="dessert menu-container">
@@ -319,7 +359,12 @@ const pageTitle = "Menu";
 				<div class="item-container">
 					<MenuItem
 						name="Chocolate Chip Cookie"
-						description=""
+						description="Classic treat with the perfect balance of sweetness and richness"
+						price={3.0}
+					/>
+					<MenuItem
+						name="Ice Cream Sandwich"
+						description="Blue Bell classic with vanilla ice cream and two chocolate wafers"
 						price={3.0}
 					/>
 				</div>
