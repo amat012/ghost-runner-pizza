@@ -2,111 +2,90 @@
 import '../styles/global.css';
 ---
 
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Ghost Runner Pizza</title>
-        <style>
+<style>
+    .ticker-wrap {
+        width: 100%;
+        overflow: hidden;
+        white-space: nowrap;
+        height: 2.25rem;
+        background-color: #416d6f;
+        margin-top: 1rem;
+    }
+    .ticker {
+        display: flex;
+        animation: marquee 20s linear infinite;
+    }
 
-            .ticker-wrap {
-                width: 100%;
-                overflow: hidden;
-                white-space: nowrap;
-                height: 2.25rem;
-                background-color: #416D6F;
-                margin-top: 1rem;
-            }
-            .ticker {
-                display: flex;
-                animation: marquee 20s linear infinite;
-            }
+    .item {
+        display: flex;
+        padding: 0 5rem;
+        align-items: baseline;
+    }
 
-            .item {
-                display: flex;
-                padding: 0 5rem;
-                align-items: baseline;
+    /* Transition */
+    @keyframes marquee {
+        0% {
+            transform: translateX(10rem);
+        }
+        100% {
+            transform: translateX(-80%);
+        }
+    }
 
-            }
+    @keyframes swap {
+        0%,
+        50% {
+            left: 0%;
+        }
+        50.01%,
+        100% {
+            left: 100%;
+        }
+    }
+    .item > * {
+        margin: 0;
+        padding: 0;
+        border: 0;
+        font-size: 100%;
+        font: inherit;
+        vertical-align: baseline;
+        font-family: "Apfel Grotezk";
+        margin-left: 0.25rem;
+        margin-top: 0.25rem;
+    }
+    .item > h3 {
+        color: #f7f2de;
+        font-size: 1.25rem;
+        font-weight: normal;
+    }
 
-            /* Transition */
-            @keyframes marquee {
-                0% {
-                    transform: translateX(10rem);
-                }
-                100% {
-                    transform: translateX(-80%);
-                }
-            }
+    .item > h2 {
+        color: #ffffff;
+        font-size: 1.75rem;
+        font-weight: bold;
+    }
 
-            @keyframes swap {
-                0%,
-                50% {
-                    left: 0%;
-                }
-                50.01%,
-                100% {
-                    left: 100%;
-                }
-            }
-            .item > * {
-                margin: 0;
-	            padding: 0;
-	            border: 0;
-	            font-size: 100%;
-	            font: inherit;
-	            vertical-align: baseline;
-                font-family: "Apfel Grotezk";
-                margin-left: 0.25rem;
-                margin-top: 0.25rem
+    .item > h4 {
+        color: #f7f2de;
+        font-size: 1rem;
+        font-weight: 400;
+    }
+</style>
 
-            }
-            .item > h3 {
-                color: #F7F2DE;
-                font-size: 1.25rem;
-                font-weight: normal;
-            }
+<div class="ticker-wrap">
+    <ul class="ticker">
+        <li class="item">
+            <h3>Now Available:</h3>
+            <h2>CHOCOLATE CHIP COOKIES</h2>
+        </li>
 
-            .item > h2 {
-                color: #ffffff;
-                font-size: 1.75rem;
-                font-weight: bold;
-            }
-
-            .item > h4 {
-                color: #F7F2DE;
-                font-size: 1rem;
-                font-weight: 400;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="ticker-wrap">
-            <div class="ticker">
-              <div class="item">
-                <h3>Now Available:</h3>
-                <h2>CHOCOLATE CHIP COOKIES</h2>
-              </div>
-
-              <div class="item">
-                <h3>This Week's Special:</h3>
-                <h2>FISHERMAN'S PIE</h2>
-                <h4>Garlic butter, diced mozzarella, clams, capers, fresh parsley, lemon wedge</h4>
-              </div>
-
-              <div class="item">
-                <h3>Now Available:</h3>
-                <h2>CHOCOLATE CHIP COOKIES</h2>
-              </div>
-
-              <div class="item">
-                <h3>This Week's Special:</h3>
-                <h2>FISHERMAN'S PIE</h2>
-                <h4>Garlic butter, diced mozzarella, clams, capers, fresh parsley, lemon wedge</h4>
-              </div>
-
-            </div>
-          <div>
-    </body>
-</html>
+        <li class="item">
+            <h3>This Week's Special:</h3>
+            <h2>FISHERMAN'S PIE</h2>
+            <h4>
+                Garlic butter, diced mozzarella, clams, capers, fresh parsley,
+                lemon wedge
+            </h4>
+        </li>
+    </ul>
+</div>
