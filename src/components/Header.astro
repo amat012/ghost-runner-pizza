@@ -11,19 +11,17 @@ import { Image } from "astro:assets";
         align-items: center;
         margin-top: 1rem;
         width: 100%;
-        gap: 2rem;  
     }
 
     .nav-item {
         list-style: none;
-
     }
 
     /* .nav-logo {
         margin-left: 10%;
         margin-right: auto;
     } */
-    
+
     .nav-button {
         margin-right: 2rem;
         position: relative;
@@ -50,7 +48,6 @@ import { Image } from "astro:assets";
         background-color: #002c2e;
     }
 
-
     .nav-button::after {
         content: "";
         position: absolute;
@@ -64,7 +61,6 @@ import { Image } from "astro:assets";
             background-color 0.3s ease-in-out;
     }
 
-
     .nav-button:hover {
         color: #fff;
         transition:
@@ -72,7 +68,6 @@ import { Image } from "astro:assets";
             background-color 0.3s ease-in-out;
     }
 
- 
     .nav-button:hover::after {
         height: 100%;
         background-color: #002c2e;
@@ -81,14 +76,10 @@ import { Image } from "astro:assets";
 
     @media (max-width: 800px) {
         .nav-list {
-            justify-content: center;
+            justify-content: space-evenly;
             width: 100%;
         }
 
-        .nav-button {
-            font-size: 2rem;
-            margin-right: 0rem;
-        }
     }
 </style>
 
