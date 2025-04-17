@@ -89,10 +89,10 @@ import { Image } from "astro:assets";
             <!-- <Image id='logo' src={grpLogo} alt="Logo for Ghost Runner Pizza" width="100"/> -->
         </li>
         <li class="nav-item">
-            <a href="/menu" class="nav-button">Menu</a>
+            <a href={`${new URL('menu', Astro.site)}`} class="nav-button">Menu</a>
         </li>
         <li class="nav-item">
-            <a href="/order" class="nav-button">Order Online</a>
+            <a href="https://google.com" class="nav-button">Order Online</a>
         </li>
     </ul>
 </navbar>
