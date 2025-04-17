@@ -6,7 +6,9 @@ import alpinejs from '@astrojs/alpinejs';
 // https://astro.build/config
 export default defineConfig({
   integrations: [alpinejs()],
-  site: "https://amat012.github.io/ghost-runner-pizza/"
+  site: "https://amat012.github.io",
+  base: "ghost-runner-pizza",
+  trailingSlash: "always",
 });
 
 {
@@ -14,5 +16,3 @@ export default defineConfig({
     svg: true
   }
  }
-
- 
