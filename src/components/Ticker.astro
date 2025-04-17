@@ -1,71 +1,71 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 ---
 
 <style>
     .ticker-wrap {
-        width: 100%;
-        overflow: hidden;
-        white-space: nowrap;
+        --gap: 5rem;
         height: 2.25rem;
+        overflow: hidden;
         background-color: #416d6f;
         margin-top: 1rem;
+        display: flex;
+        gap: var(--gap);
+        white-space: nowrap;
     }
     .ticker {
+        flex-shrink: 0;
         display: flex;
-        animation: marquee 20s linear infinite;
+        flex-direction: row;
+        gap: var(--gap);
+        justify-content: space-around;
+        min-width: 100%;
+        justify-content: ;
+        animation: scroll 20s linear infinite;
+    }
+
+    .ticker-wrap:hover .ticker{
+        animation-play-state: paused;
     }
 
     .item {
         display: flex;
-        padding: 0 5rem;
         align-items: baseline;
     }
 
     /* Transition */
-    @keyframes marquee {
-        0% {
-            transform: translateX(10rem);
+    @keyframes scroll {
+        from {
+            transform: translateX(0);
         }
-        100% {
-            transform: translateX(-80%);
+        to {
+            transform: translateX(calc(-100% - var(--gap)));
         }
     }
 
-    @keyframes swap {
-        0%,
-        50% {
-            left: 0%;
-        }
-        50.01%,
-        100% {
-            left: 100%;
-        }
-    }
     .item > * {
         margin: 0;
         padding: 0;
         border: 0;
         font-size: 100%;
-        font: inherit;
         vertical-align: baseline;
         font-family: "Apfel Grotezk";
         margin-left: 0.25rem;
         margin-top: 0.25rem;
     }
-    .item > h3 {
+    .item > h5 {
         color: #f7f2de;
         font-size: 1.25rem;
         font-weight: normal;
     }
 
-    .item > h2 {
+    .item > h4 {
         color: #ffffff;
         font-size: 1.75rem;
         font-weight: bold;
     }
 
-    .item > h4 {
+    .item > p {
         color: #f7f2de;
         font-size: 1rem;
         font-weight: 400;
@@ -75,17 +75,32 @@ import '../styles/global.css';
 <div class="ticker-wrap">
     <ul class="ticker">
         <li class="item">
-            <h3>Now Available:</h3>
-            <h2>CHOCOLATE CHIP COOKIES</h2>
+            <h5>Now Available:</h5>
+            <h4>CHOCOLATE CHIP COOKIES</h4>
         </li>
 
         <li class="item">
-            <h3>This Week's Special:</h3>
-            <h2>FISHERMAN'S PIE</h2>
-            <h4>
+            <h5>This Week's Special:</h5>
+            <h4>FISHERMAN'S PIE</h4>
+            <p>
                 Garlic butter, diced mozzarella, clams, capers, fresh parsley,
                 lemon wedge
-            </h4>
+            </p>
+        </li>
+    </ul>
+    <ul aria-hidden="true" class="ticker">
+        <li class="item">
+            <h5>Now Available:</h5>
+            <h4>CHOCOLATE CHIP COOKIES</h4>
+        </li>
+
+        <li class="item">
+            <h5>This Week's Special:</h5>
+            <h4>FISHERMAN'S PIE</h4>
+            <p>
+                Garlic butter, diced mozzarella, clams, capers, fresh parsley,
+                lemon wedge
+            </p>
         </li>
     </ul>
 </div>
