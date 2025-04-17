@@ -87,16 +87,16 @@ const pageTitle = "Menu";
 				margin-left: 10rem;
 			}
 
-			section > h2 {
+			.menu-container > h2 {
 				font-family: "Pally-Variable", "sans serif";
-				padding: 0 5%;
+				/* padding: 0 5%; */
 				font-weight: 600;
 				text-transform: uppercase;
 				font-size: 3.5rem;
 				letter-spacing: -0.075rem;
 			}
 
-			section > h4 {
+			.menu-container > h4 {
 				font-family: "Apfel Grotezk", "sans serif";
 				color: #416d6f;
 				text-transform: uppercase;
@@ -104,9 +104,27 @@ const pageTitle = "Menu";
 				font-weight: 500;
 			}
 
-			section > h5 {
+			.menu-container > h5 {
 				font-family: "Apfel Grotezk", "sans serif";
 				color: #416d6f;
+				font-weight: 400;
+			}
+
+			.menu-container > h3 {
+				margin-top: 7rem;
+				font-family: "Pally-Variable", "sans serif";
+				padding: 0 5%;
+				font-weight: 500;
+				text-transform: uppercase;
+				font-size: 2.5rem;
+				letter-spacing: -0.075rem;
+			}
+
+			.menu-container > h6 {
+				font-family: "Apfel Grotezk", "sans serif";
+				color: #416d6f;
+				text-transform: uppercase;
+				font-size: 1rem;
 				font-weight: 400;
 			}
 
@@ -114,7 +132,7 @@ const pageTitle = "Menu";
 				margin-top: 2rem;
 				display: grid;
 				grid-template-columns: repeat(2, 1fr);
-				gap: 8rem;
+				gap: 6rem;
 				align-items: flex-start;
 				max-width: 70%;
 			}
@@ -242,7 +260,7 @@ const pageTitle = "Menu";
 			<section class="pizza menu-container">
 				<h2>Pizza</h2>
 				<h4>Additional side sauces for $1.50:</h4>
-				<h5>Calabrian Chili Cream, Hot Cane Syrup, Ranch</h5>
+				<h5>Calabrian Chili Cream • Hot Cane Syrup • Ranch</h5>
 				<div class="item-container">
 					<MenuItem
 						name="Cheese"
@@ -294,16 +312,15 @@ const pageTitle = "Menu";
 			</section>
 			<section class="beverage menu-container">
 				<h2>Beverages</h2>
-				<h4>More wine and beer options available in house</h4>
 				<div class="item-container">
 					<MenuItem
 						name="Bottled Soda"
-						description="Coke / Sprite / Fanta / Root Beer"
+						description="Coke • Sprite • Fanta • Root Beer"
 						price={3.0}
 					/>
 					<MenuItem
 						name="Canned Soda"
-						description="Diet Coke / Coke Zero"
+						description="Diet Coke • Coke Zero"
 						price={2.0}
 					/>
 					<MenuItem
@@ -316,6 +333,10 @@ const pageTitle = "Menu";
 						description="Sparkling mineral water"
 						price={3.0}
 					/>
+				</div>
+				<h3>Beer</h3>
+				<h6>More options in-house</h6>
+				<div class="item-container">
 					<MenuItem
 						name="Miller High Life Pony"
 						description="Crisp and light in a 7 oz. pony bottle. Bucket of 6 available"
@@ -346,6 +367,9 @@ const pageTitle = "Menu";
 					description="British medium-dry sparkling cider with light body and clean apple flavor"
 					price={8.0}
 					/>
+				</div>
+				<h3>Frozen Cocktails</h3>
+				<div class="item-container">
 					<MenuItem
 					name="Painkiller"
 					description="Frozen cocktail with rum, pineapple juice, orange juice, and cream of coconut "
