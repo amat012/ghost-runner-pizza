@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import grpLogo from "../assets/ghost-runner-pizza-logo.svg";
+import { Image } from "astro:assets";
 ---
 
 <style>
@@ -8,16 +10,22 @@ import "../styles/global.css";
         justify-content: flex-end;
         align-items: center;
         margin-top: 1rem;
+        width: 100%;
+        gap: 2rem;  
     }
 
     .nav-item {
         list-style: none;
-        margin-right: 2rem;
-    }
-</style>
 
-<style>
+    }
+
+    /* .nav-logo {
+        margin-left: 10%;
+        margin-right: auto;
+    } */
+    
     .nav-button {
+        margin-right: 2rem;
         position: relative;
         display: inline-block;
         font-size: 2rem;
@@ -42,7 +50,7 @@ import "../styles/global.css";
         background-color: #002c2e;
     }
 
-    /* Always visible bottom line */
+
     .nav-button::after {
         content: "";
         position: absolute;
@@ -56,24 +64,39 @@ import "../styles/global.css";
             background-color 0.3s ease-in-out;
     }
 
-    /* Hover Effects */
+
     .nav-button:hover {
-        color: #fff; /* Change text color to white */
+        color: #fff;
         transition:
             height 0.3s ease-in-out,
             background-color 0.3s ease-in-out;
     }
 
-    /* Expanding line to form a rectangle on hover */
+ 
     .nav-button:hover::after {
-        height: 100%; /* Expands the line upwards */
+        height: 100%;
         background-color: #002c2e;
         z-index: -1;
+    }
+
+    @media (max-width: 800px) {
+        .nav-list {
+            justify-content: center;
+            width: 100%;
+        }
+
+        .nav-button {
+            font-size: 2rem;
+            margin-right: 0rem;
+        }
     }
 </style>
 
 <navbar>
     <ul class="nav-list">
+        <li class="nav-logo nav-item">
+            <!-- <Image id='logo' src={grpLogo} alt="Logo for Ghost Runner Pizza" width="100"/> -->
+        </li>
         <li class="nav-item">
             <a href="/menu" class="nav-button">Menu</a>
         </li>

@@ -1,95 +1,88 @@
 ---
-import '../styles/global.css';
+import "../styles/global.css";
 import { Image } from "astro:assets";
 import grpLogo from "../assets/ghost-runner-pizza-logo.svg";
-import Ticker from "../components/Ticker.astro";
-import Header from "../components/Header.astro";
-
+import BaseLayout from "../layouts/BaseLayout.astro";
 ---
 
-<!doctype html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Ghost Runner Pizza</title>
+<style>
+    #logo {
+        height: auto;
+        width: 50%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
 
-        
+    #title-loc {
+        font-size: 2rem;
+    }
 
+    .info-box {
+        margin-top: 3rem;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 3rem;
+		align-items: flex-start;
+		max-width: 70%;
+        margin-left:auto;
+        margin-right: auto;
+    }
+    .info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
 
-        <style>
+    .info > h2 {
+        display: inline;
+        width: fit-content;
+        border-top: 2px solid #002c2e;
+        border-bottom: 2px solid #002c2e;
+        font-family: "Apfel Grotezk";
+        font-weight: 800;
+        font-size: 1.75rem;
+        margin-bottom: 0.5rem;
+        color: #002c2e;
+    }
 
-            #logo {
-                height: auto;
-                width: 40%;
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-                margin-top: 2.5rem;
-                margin-bottom: 1.5rem;
-            }
+    .info > p {
+        font-family: "Apfel Grotezk";
+        font-weight: normal;
+        font-size: 1rem;
+        color: #002c2e;
+    }
 
-            #title-loc {
-                font-size: 2rem;
-            }
+    .hours > p span {
+        font-weight: bold;
+    }
 
-
-            .info-box {
-                display: flex;
-                justify-content: center;
-                gap: 7rem;
-            }
-            .location, .hours {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .location > h2, .hours > h2 {
-                /* display: inline-block; */
-                border-top: 1px solid #002C2E;
-                border-bottom: 1px solid #002C2E;
-                letter-spacing: 0.5rem;
-                font-family: "Pally-Variable";
-                font-weight: 700;
-                font-size: 1.75rem;
-                margin-bottom: 0.5rem;
-                color: #002C2E;
-            }
-
-            .location > p, .hours > p {
-                font-family: "Apfel Grotezk";
-                font-weight: normal;
-                font-size: 1rem;
-                color: #002C2E
-            }
-
-            .hours > p span {
-                font-weight: bold;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="navigation">
-            <Header />
-            <Ticker />
+    @media (max-width: 800px) {
+        #logo {
+            width: 80%;
+        }
+        .info-box {
+			grid-template-columns: 1fr !important;
+            width: 100%;
+		}
+    }
+</style>
+<BaseLayout>
+    <Image id="logo" src={grpLogo} alt="Logo for Ghost Runner Pizza" />
+    <div class="info-box">
+        <div class="info location">
+            <h2>LOCATION</h2>
+            <p>742 Main St. Perry, GA 31069</p>
+            <p>Perry, GA 31069</p>
         </div>
 
-        <Image id='logo' src={grpLogo} alt="Logo for Ghost Runner Pizza"/>
-        <div class="info-box">
-            <div class="location">
-                <h2>LOCATION</h2>
-                <p>742 Main St. Perry, GA 31069</p>
-                <p>Perry, GA 31069</p>
-            </div>
-
-            <div class="hours">
-                <h2>HOURS</h2>
-                <p><span>MON - WED</span>: Closed</p>
-                <p><span>THU - SUN</span>: 5:00pm - 9:00pm</p>
-            </div>
+        <div class="info hours">
+            <h2>HOURS</h2>
+            <p><span>MON - WED</span>: Closed</p>
+            <p><span>THU - SUN</span>: 5:00pm - 9:00pm</p>
         </div>
-
-
-    </body>
-</html>
+    </div>
+</BaseLayout>
