@@ -7,7 +7,7 @@ import alpinejs from '@astrojs/alpinejs';
 export default defineConfig({
   integrations: [alpinejs()],
   site: "https://amat012.github.io",
-  base: "ghost-runner-pizza",
+  base: "/ghost-runner-pizza",
   trailingSlash: "always",
 });
 
