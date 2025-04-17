@@ -163,6 +163,8 @@ const pageTitle = "Menu";
 		class="wrapper"
 		x-data="{
 				insetValue: '0 100% 0 0',
+				observer: null,
+				paused: false,
 				update(tab) {
 					const insetValues = {
 					pizza: '0 81.5% 0 1%',
@@ -173,19 +175,25 @@ const pageTitle = "Menu";
 				this.insetValue = insetValues[tab] || '0 100% 0 0'
 			},
 			scrollToSection(section) {
-				$nextTick(() => document.querySelector(section)?.scrollIntoView());
-
+				this.paused = true;
+				document.querySelector(section)?.scrollIntoView();
+				setTimeout(() => { this.paused = false; }, 700);
 			},
 			observeSections() {
-    			const sections = document.querySelectorAll('.menu-container');
-    			const observer = new IntersectionObserver(entries => {
-        			entries.forEach(entry => {
-            			if (entry.isIntersecting && this.activeTab !== entry.target.classList[0]) {
-                			this.update(entry.target.classList[0]); 
-            			}
-        			});
-    			}, { threshold: 0.25 });
-    			sections.forEach(section => observer.observe(section));
+				const sections = document.querySelectorAll('.menu-container');
+
+				this.observer = new IntersectionObserver(entries => {
+					if (this.paused) return;
+
+					entries.forEach(entry => {
+						if (entry.isIntersecting) {
+							const className = entry.target.classList[0];
+							this.update(className);
+						}
+					});
+				}, { threshold: 0.6 });
+
+				sections.forEach(section => this.observer.observe(section));
 			}
 			
 
