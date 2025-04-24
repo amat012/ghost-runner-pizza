@@ -185,14 +185,18 @@ const pageTitle = "Menu";
 				}
 				setTimeout(() => { this.paused = false; }, 700);
 			},
+			/*
+			will probably have to adjust when adding to menu
+			*/
 			observeSections() {
-				let thresholdVal = 0.55;
+				let thresholdVal = 0.65;
 				if (window.innerWidth <= 900) {
 					thresholdVal = 0.15;
-					if (window.innerHeight <= 700) {
-						thresholdVal=0.01;
-					}
 				}
+				if (window.innerHeight <= 900) {
+						thresholdVal = 0.1;
+
+					}
 				const sections = document.querySelectorAll('.menu-container');
 
 				this.observer = new IntersectionObserver(entries => {
