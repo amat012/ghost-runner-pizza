@@ -136,7 +136,7 @@ const pageTitle = "Menu";
 		margin-top: 2rem;
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
-		gap: 6rem;
+		gap: 4rem;
 		align-items: flex-start;
 		max-width: 70%;
 	}
@@ -186,6 +186,13 @@ const pageTitle = "Menu";
 				setTimeout(() => { this.paused = false; }, 700);
 			},
 			observeSections() {
+				let thresholdVal = 0.55;
+				if (window.innerWidth <= 900) {
+					thresholdVal = 0.15;
+					if (window.innerHeight <= 700) {
+						thresholdVal=0.01;
+					}
+				}
 				const sections = document.querySelectorAll('.menu-container');
 
 				this.observer = new IntersectionObserver(entries => {
@@ -198,8 +205,8 @@ const pageTitle = "Menu";
 						}
 					});
 				}, {
-					threshold: 0.40,
-					rootMargin: '0px 0px -20% 0px'
+					threshold: thresholdVal,
+					rootMargin: '-20% 0px -20% 0px'
 				});
 
 				sections.forEach(section => this.observer.observe(section));
@@ -409,7 +416,7 @@ const pageTitle = "Menu";
 			<div class="item-container">
 				<MenuItem
 					name="Chocolate Chip Cookie"
-					description="Classic treat with the perfect balance of sweetness and richness"
+					description="Homemade treat with the perfect balance of sweetness and richness"
 					price={3.0}
 				/>
 				<MenuItem
