@@ -1,0 +1,129 @@
+---
+import Ticker from "./Ticker.astro";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+
+  <div class="footer-inner">
+
+    <div class="footer-left">
+      <nav>
+        <ul class="footer-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/menu">Menu</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="https://google.com/">Order Online</a></li>
+        </ul>
+      </nav>
+    </div>
+
+
+    <div class="footer-right">
+      <p class="social-label">Follow us:</p>
+      <div class="social-icons">
+        <a href="https://instagram.com/ghostrunnerpizza" target="_blank" aria-label="Instagram">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram-icon lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+        </a>
+        <a href="https://facebook.com/ghostrunnerpizza" target="_blank" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook-icon lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© {year} Ghost Runner Pizza | All Rights Reserved</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    padding: 3rem 5%;
+    background: #f7f7f7;
+    font-family: "Apfel Grotezk", sans-serif;
+    border-top: 1px solid #ccc;
+    margin-top: 2rem;
+  }
+
+  .footer-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .footer-nav {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .footer-nav li {
+    display: inline-block;
+    margin-right: 1rem;
+  }
+
+  .footer-nav a {
+    color: #002c2e;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  .footer-nav a:hover {
+    color: #416d6f;
+  }
+
+  .footer-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .social-label {
+    font-size: 0.875rem;
+    color: #416d6f;
+    margin: 0;
+  }
+
+  .social-icons a {
+    color: #002c2e;
+    transition: color 0.2s ease;
+  }
+
+  .social-icons a:hover {
+    color: #416d6f;
+  }
+
+  .social-icons i {
+    width: 20px;
+    height: 20px;
+  }
+
+  .footer-bottom {
+    margin-top: 1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: #416d6f;
+  }
+
+  @media (max-width: 600px) {
+    .footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .footer-right {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1rem;
+    }
+  }
+</style>

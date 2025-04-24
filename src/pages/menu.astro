@@ -40,7 +40,7 @@ const pageTitle = "Menu";
 		font-family: "Apfel Grotezk";
 		font-weight: 500;
 		font-size: 1rem;
-		margin-bottom: 5rem;
+		margin-bottom: 4rem;
 		z-index: 999;
 
 		/* clip-path: inset(0 81% 0 8% round 1rem); */
@@ -91,13 +91,9 @@ const pageTitle = "Menu";
 		color: white;
 	}
 
-	#content-container {
-		margin-left: 10rem;
-	}
-
 	.menu-container > h2 {
 		font-family: "Pally-Variable", "sans serif";
-		/* padding: 0 5%; */
+		padding: 0 5%;
 		font-weight: 600;
 		text-transform: uppercase;
 		font-size: 3.5rem;
@@ -119,7 +115,7 @@ const pageTitle = "Menu";
 	}
 
 	.menu-container > h3 {
-		margin-top: 7rem;
+		margin-top: 4rem;
 		font-family: "Pally-Variable", "sans serif";
 		padding: 0 5%;
 		font-weight: 500;
@@ -145,7 +141,7 @@ const pageTitle = "Menu";
 		max-width: 70%;
 	}
 
-	@media (max-width: 800px) {
+	@media (max-width: 900px) {
 		.item-container {
 			grid-template-columns: 1fr;
 		}
@@ -156,6 +152,10 @@ const pageTitle = "Menu";
 		flex-direction: column;
 		align-items: center;
 		margin-bottom: 8rem;
+	}
+
+	.content-container {
+		padding-bottom: 8rem;
 	}
 </style>
 <BaseLayout>
@@ -176,7 +176,13 @@ const pageTitle = "Menu";
 			},
 			scrollToSection(section) {
 				this.paused = true;
-				document.querySelector(section)?.scrollIntoView();
+				const element = document.querySelector(section);
+				if (element) {
+					const yOffset = -80;
+					const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+					window.scrollTo({ top: y, behavior: 'smooth' });
+				}
 				setTimeout(() => { this.paused = false; }, 700);
 			},
 			observeSections() {
@@ -191,7 +197,10 @@ const pageTitle = "Menu";
 							this.update(className);
 						}
 					});
-				}, { threshold: 0.6 });
+				}, {
+					threshold: 0.40,
+					rootMargin: '0px 0px -20% 0px'
+				});
 
 				sections.forEach(section => this.observer.observe(section));
 			}
@@ -346,7 +355,7 @@ const pageTitle = "Menu";
 					price={3.0}
 				/>
 			</div>
-			<h3>Beer</h3>
+			<h3>Alcohol</h3>
 			<h6>More options in-house</h6>
 			<div class="item-container">
 				<MenuItem
@@ -379,6 +388,11 @@ const pageTitle = "Menu";
 					description="British medium-dry sparkling cider with light body and clean apple flavor"
 					price={8.0}
 				/>
+				<MenuItem
+				name="Another Drink"
+				description="British medium-dry sparkling cider with light body and clean apple flavor"
+				price={8.0}
+			/>
 			</div>
 			<h3>Frozen Cocktails</h3>
 			<div class="item-container">
