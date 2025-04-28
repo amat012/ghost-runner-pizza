@@ -10,6 +10,7 @@ const pageTitle = "Menu";
 ---
 
 <style>
+	[x-cloak] { visibility: hidden !important; }
 	html {
 		scroll-behavior: smooth;
 	}
@@ -87,6 +88,7 @@ const pageTitle = "Menu";
 		overflow: hidden;
 		transition: clip-path 0.45s ease-in-out;
 	}
+
 	.overlay {
 		color: white;
 	}
@@ -157,13 +159,19 @@ const pageTitle = "Menu";
 	.content-container {
 		padding-bottom: 8rem;
 	}
+
+	.lock-scroll {
+		overflow: hidden;
+		touch-action: none;
+	}
+
+
 </style>
 <BaseLayout>
 	<div
 		class="wrapper"
 		x-data="{
 				insetValue: '0 100% 0 0',
-				observer: null,
 				paused: false,
 				update(tab) {
 					const insetValues = {
@@ -173,6 +181,7 @@ const pageTitle = "Menu";
 					dessert: '0 0.5% 0 76.5%'
 				};
 				this.insetValue = insetValues[tab] || '0 100% 0 0'
+				this.lockScroll();
 			},
 			scrollToSection(section) {
 				this.paused = true;
@@ -185,38 +194,42 @@ const pageTitle = "Menu";
 				}
 				setTimeout(() => { this.paused = false; }, 700);
 			},
-			/*
-			will probably have to adjust when adding to menu
-			*/
 			observeSections() {
-				let thresholdVal = 0.65;
-				if (window.innerWidth <= 900) {
-					thresholdVal = 0.15;
-				}
-				if (window.innerHeight <= 900) {
-						thresholdVal = 0.1;
+				const sections = Array.from(document.querySelectorAll('.menu-container'));
+				const offset = 180;
 
+				window.addEventListener('scroll', () => {
+					if (this.paused) { return }
+					const scrollPos = window.scrollY + offset;
+
+					const bottomThreshold = 50;
+					const scrollBottom = window.innerHeight + window.scrollY;
+					const pageHeight = document.documentElement.scrollHeight;
+					if (pageHeight - scrollBottom < bottomThreshold) {
+						this.update('dessert');
+						return;
 					}
-				const sections = document.querySelectorAll('.menu-container');
 
-				this.observer = new IntersectionObserver(entries => {
-					if (this.paused) return;
-
-					entries.forEach(entry => {
-						if (entry.isIntersecting) {
-							const className = entry.target.classList[0];
-							this.update(className);
+					let currentSection = sections[0];
+					for (let section of sections) {
+						if (section.offsetTop <= scrollPos) {
+							currentSection = section;
 						}
-					});
-				}, {
-					threshold: thresholdVal,
-					rootMargin: '-20% 0px -20% 0px'
+					}
+
+					const className = currentSection.classList[0];
+					this.update(className);
 				});
+	
+			},
+			lockScroll() {
+    			const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
+    			document.body.classList.add('lock-scroll');
 
-				sections.forEach(section => this.observer.observe(section));
+    			setTimeout(() => {
+        			document.body.classList.remove('lock-scroll');
+    			}, 600);
 			}
-			
-
 			}"
 		x-init="observeSections()"
 	>
@@ -259,8 +272,9 @@ const pageTitle = "Menu";
 			</li>
 		</ul>
 		<div
-			aria-hidden
+			aria-hidden="true"
 			class="clip-path-container"
+			x-cloak
 			x-bind:style="`clip-path: inset(${insetValue} round 1em)`"
 		>
 			<ul class="menu-select list-overlay">
