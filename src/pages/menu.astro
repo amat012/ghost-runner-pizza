@@ -86,8 +86,9 @@ const pageTitle = "Menu";
 		z-index: 10;
 		width: 100%;
 		overflow: hidden;
-		transition: clip-path 0.45s ease-in-out;
+		transition: clip-path 0.65s ease-in-out;
 	}
+	/* ANIMATION SCROLL ISSUE probably due to the scrollTo still continuing after the animation has completed triggering another animation in the process */
 
 	.overlay {
 		color: white;
@@ -180,29 +181,28 @@ const pageTitle = "Menu";
 					beverage: '0 27% 0 44.5%',
 					dessert: '0 0.5% 0 76.5%'
 				};
-				this.insetValue = insetValues[tab] || '0 100% 0 0';
-				this.lockScroll();
+				this.insetValue = insetValues[tab] || '0 100% 0 0'
 			},
 			scrollToSection(section) {
+				if (this.paused) { return }
 				this.paused = true;
 				const element = document.querySelector(section);
 				if (element) {
 					const yOffset = -80;
 					const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-
+					this.lockScroll();
 					window.scrollTo({ top: y, behavior: 'smooth' });
+					this.update(section.substring(1));
+					
 				}
-				setTimeout(() => { this.paused = false; }, 450);
+				setTimeout(() => { this.paused = false; }, 650);
 			},
 			observeSections() {
 				const sections = Array.from(document.querySelectorAll('.menu-container'));
 				const offset = 180;
 
 				window.addEventListener('scroll', () => {
-					if (this.paused) { 
-						return; 
-					}
-					console.log(`NOT PAUSED`);
+					if (this.paused) { return }
 					const scrollPos = window.scrollY + offset;
 
 					const bottomThreshold = 50;
@@ -231,7 +231,7 @@ const pageTitle = "Menu";
 
     			setTimeout(() => {
         			document.body.classList.remove('lock-scroll');
-    			}, 600);
+    			}, 650);
 			}
 			}"
 		x-init="observeSections()"
@@ -242,7 +242,7 @@ const pageTitle = "Menu";
 					type="radio"
 					id="pizza-tab"
 					name="menu-tabs"
-					@click="update('pizza'); scrollToSection('.pizza')"
+					@click="scrollToSection('.pizza');"
 				/>
 				<label for="pizza-tab" class="tab-label">Pizza</label>
 			</li>
@@ -251,7 +251,7 @@ const pageTitle = "Menu";
 					type="radio"
 					id="salad-tab"
 					name="menu-tabs"
-					@click="update('salad'); scrollToSection('.salad')"
+					@click="scrollToSection('.salad');"
 				/>
 				<label for="salad-tab" class="tab-label">Salad</label>
 			</li>
@@ -260,7 +260,7 @@ const pageTitle = "Menu";
 					type="radio"
 					id="beverage-tab"
 					name="menu-tabs"
-					@click="update('beverage'); scrollToSection('.beverage')"
+					@click="scrollToSection('.beverage');"
 				/>
 				<label for="beverage-tab" class="tab-label">Beverages</label>
 			</li>
@@ -269,7 +269,7 @@ const pageTitle = "Menu";
 					type="radio"
 					id="dessert-tab"
 					name="menu-tabs"
-					@click="update('dessert'); scrollToSection('.dessert')"
+					@click="scrollToSection('.dessert');"
 				/>
 				<label for="dessert-tab" class="tab-label">Dessert</label>
 			</li>
