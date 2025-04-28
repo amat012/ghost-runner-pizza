@@ -180,7 +180,7 @@ const pageTitle = "Menu";
 					beverage: '0 27% 0 44.5%',
 					dessert: '0 0.5% 0 76.5%'
 				};
-				this.insetValue = insetValues[tab] || '0 100% 0 0'
+				this.insetValue = insetValues[tab] || '0 100% 0 0';
 				this.lockScroll();
 			},
 			scrollToSection(section) {
@@ -192,14 +192,17 @@ const pageTitle = "Menu";
 
 					window.scrollTo({ top: y, behavior: 'smooth' });
 				}
-				setTimeout(() => { this.paused = false; }, 700);
+				setTimeout(() => { this.paused = false; }, 450);
 			},
 			observeSections() {
 				const sections = Array.from(document.querySelectorAll('.menu-container'));
 				const offset = 180;
 
 				window.addEventListener('scroll', () => {
-					if (this.paused) { return }
+					if (this.paused) { 
+						return; 
+					}
+					console.log(`NOT PAUSED`);
 					const scrollPos = window.scrollY + offset;
 
 					const bottomThreshold = 50;
