@@ -2,97 +2,202 @@
 import "../styles/global.css";
 import grpLogo from "../assets/ghost-runner-pizza-logo.svg";
 import { Image } from "astro:assets";
+import NavToggle from './NavToggle.svelte';
+
+const { currentPath } = Astro.props;
+console.log('Header Path:', currentPath); // Debug the received path
+const isHomePage = currentPath.endsWith('/ghost-runner-pizza/') || currentPath === '/ghost-runner-pizza';
 ---
 
 <style>
+    nav {
+        margin-top: 1rem;
+        background-color: #f7f2de;
+        margin-bottom: 4rem;
+         /* Increased margin to add more space below */
+        position: relative;
+    }
+
     .nav-list {
         display: flex;
-        justify-content: flex-end;
         align-items: center;
-        margin-top: 1rem;
+        list-style: none;
+        justify-content: space-between;
+        padding: 1rem;
+
+        position: relative;
+    }
+
+    .nav-logo {
+        margin-left: 1rem;
+        margin-top: 3rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 100%;
+        position: absolute;
+        left: 50%;
+        z-index: 1000;
+        transform: translateX(-50%);
+        height: 30px; /* Add this line to control container height */
+        padding: 1rem; /* Add padding to match hamburger menu */
+    }
+
+    .nav-logo svg {
+        
+        height: 100%; /* Makes SVG fill container height */
+        width: auto;
+        max-width: 80px; /* Add this line to control maximum width */
+    }
+
+    .nav-logo img {
+        width: auto;
+        object-fit: contain;
+    }
+
+    .nav-logo.hidden {
+        display: none;
+        visibility: hidden;
+        opacity: 0;
+        pointer-events: none;
     }
 
     .nav-item {
-        list-style: none;
+        display: flex;
+        align-items: center;
     }
 
-    /* .nav-logo {
-        margin-left: 10%;
-        margin-right: auto;
-    } */
+    .nav-buttons {
+        display: flex;
+        gap: 1rem;
+        margin-right: 1rem;
+    }
 
-    .nav-button {
-        margin-right: 2rem;
-        position: relative;
-        display: inline-block;
-        font-size: 2rem;
+    nav a {
+        font-size: 1.5rem;
         font-family: "Apfel Grotezk";
-        font-weight: bold;
-        text-transform: uppercase;
+        font-weight: 500;
         color: #002c2e;
         cursor: pointer;
         text-decoration: none;
-        overflow: hidden;
 
+        transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+        color: #00ff08;
+    }
+
+    .hamburger-wrapper {
+        display: flex;
+        position: absolute;  
+        top: 0.5rem;        /* Changed from 1rem to 0.5rem */
+        right: 1.5rem;        
+        z-index: 9999;
+        padding: 0;
+        background: transparent;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hamburger {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        display: flex;      /* Add this to ensure proper alignment */
+        align-items: center;
+        justify-content: center;
+    }
+
+    .mobile-modal {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 30vw;
+        height: 100vh;
+        background-color: rgba(247, 242, 222, 0.8);
+        backdrop-filter: blur(6px);
+        z-index: 9998;
+        border-left: 2px solid #002c2e;
+
+        transform: translateX(100%);
+        opacity: 0;
         transition:
-            background-color 0.3s ease,
-            color 0.3s ease;
+            transform 0.3s ease,
+            opacity 0.3s ease;
+        pointer-events: none;
     }
 
-    .nav-button::before {
-        content: "";
-        position: absolute;
-        width: 100%;
-        height: 2px;
-        background-color: #002c2e;
+    .mobile-modal.show {
+        transform: translateX(0);
+        opacity: 1;
+        pointer-events: auto;
     }
 
-    .nav-button::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 2px;
-        background-color: #002c2e;
-        transition:
-            height 0.3s ease-in-out,
-            background-color 0.3s ease-in-out;
-    }
-
-    .nav-button:hover {
-        color: #fff;
-        transition:
-            height 0.3s ease-in-out,
-            background-color 0.3s ease-in-out;
-    }
-
-    .nav-button:hover::after {
-        height: 100%;
-        background-color: #002c2e;
-        z-index: -1;
-    }
-
-    @media (max-width: 800px) {
-        .nav-list {
-            justify-content: space-evenly;
-            width: 100%;
+    @media (max-width: 1024px) {
+        .mobile-modal {
+            width: 100vw;
         }
+    }
 
+    /*1024px breakpoint for modal */
+
+    .mobile-modal a {
+        padding: 0.5rem 1.5rem;
+        font-size: 2rem;
+        color: #002c2e;
+        font-weight: 400;
+        text-decoration: none;
+        text-align: center;
+    }
+
+    .mobile-modal a:hover {
+        color: #00ff08;
+    }
+
+    .nav-list {
+        justify-content: center;
+        padding: 1rem 1rem;
+    }
+
+    .nav-buttons {
+        display: none;
     }
 </style>
 
-<navbar>
+<nav>
     <ul class="nav-list">
-        <li class="nav-logo nav-item">
-            <!-- <Image id='logo' src={grpLogo} alt="Logo for Ghost Runner Pizza" width="100"/> -->
+        <li class={`nav-logo ${isHomePage ? 'hidden' : ''}`}>
+            <a href="/ghost-runner-pizza/">
+                <Image 
+                    src={grpLogo} 
+                    alt="Ghost Runner Pizza Logo" 
+                    width={240} 
+                    height={90} 
+                    class="logo"
+                    transition:name="logo" 
+                />
+            </a>
         </li>
-        <li class="nav-item">
+
+        <li class="nav-buttons">
             <a href="/ghost-runner-pizza/menu/" class="nav-button">Menu</a>
-        </li>
-        <li class="nav-item">
             <a href="https://google.com" class="nav-button">Order Online</a>
         </li>
+        <li class="nav-item hamburger-wrapper">
+            <NavToggle client:load />
+        </li>
     </ul>
-</navbar>
+
+    <!-- Remove Alpine.js syntax from modal -->
+    <div class="mobile-modal">
+        <ul>
+            <li>
+                <ion-icon name="pizza-outline"></ion-icon>
+                <a href="/ghost-runner-pizza/menu/">Menu</a>
+            </li>
+        </ul>
+        <a href="https://google.com">Order Online</a>
+    </div>
+</nav>
