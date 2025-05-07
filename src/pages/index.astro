@@ -3,17 +3,22 @@ import "../styles/global.css";
 import { Image } from "astro:assets";
 import grpLogo from "../assets/ghost-runner-pizza-logo.svg";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import BusinessClock from '../components/BusinessClock.svelte';
+
+const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY;
 ---
 
 <style>
     #logo {
         height: auto;
-        width: 40%;
+        width: min(60vw, 800px);  /* Use viewport width with a max size */
         display: block;
         margin-left: auto;
         margin-right: auto;
-        margin-top: 2.5rem;
-        margin-bottom: 1.5rem;
+        margin-top: clamp(2rem, 4vw, 4rem);
+        margin-bottom: clamp(1rem, 2vw, 2rem);
+        z-index: 9995;
+        margin-bottom: 6rem;  /* Reduce from 8rem for better visual flow */
     }
 
     #title-loc {
@@ -56,33 +61,180 @@ import BaseLayout from "../layouts/BaseLayout.astro";
         color: #002c2e;
     }
 
-    .hours > p span {
+
+
+    .info-section {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2rem;
+        margin: 4rem auto;
+        max-width: 900px;  /* Reduced from 1200px to bring content closer */
+        padding: 0 1rem;
+        margin-bottom: 8rem;  /* Reduce from 12rem - current spacing feels too large */
+    }
+
+    .info-text {
+        flex: 0 1 auto;  /* Changed from flex: 1 to prevent stretching */
+        text-align: right;
+    }
+
+    .info-text h2 {
+        font-family: "Pally-Variable";
+        font-weight: 800;
+        font-size: clamp(3rem, 5vw, 4rem);  /* Make more responsive */
+        letter-spacing: -0.02em;  /* Add slight kerning for headlines */
+        color: #002c2e;
+        margin-bottom: 0.5rem;
+    }
+
+    .info-text p {
+        font-family: "Apfel Grotezk";
+        font-size: clamp(1.75rem, 3vw, 2.25rem);  /* More responsive text */
+        color: #002c2e;
+    }
+
+    .map-wrapper {
+        flex: 0 1 auto;
+        width: 450px;    /* Set explicit width */
+        aspect-ratio: 1;
+        max-width: 450px;
+        transition: transform 0.2s ease;
+    }
+
+    .map-wrapper:hover {
+        transform: translateY(-20px);  /* Subtle interaction */
+    }
+
+    .map-wrapper iframe {
+        width: 100%;
+        height: 100%;
+        border: 2px solid #002c2e;
+        border-radius: 1rem;
+    }
+
+    .hours-text {
+        text-align: left;
+        justify-content: center;
+    }
+
+    .hours-text > p span {
         font-weight: bold;
+    }
+
+    .clock-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hours-highlight {
+        transform-origin: center;
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    .status-indicator {
+        position: absolute;
+        bottom: -1.5rem;
+        font-family: "Apfel Grotezk";
+        font-size: 0.875rem;
+        font-weight: bold;
+        color: #ff3b30;
+    }
+
+    .status-indicator.open {
+        color: #34c759;
+    }
+
+    @keyframes pulse {
+        0% { opacity: 0.6; }
+        50% { opacity: 1; }
+        100% { opacity: 0.6; }
     }
 
     @media (max-width: 800px) {
         #logo {
-            width: 80%;
+            width: 80vw;  /* Larger percentage on mobile */
         }
         .info-box {
 			grid-template-columns: 1fr;
             width: 100%;
 		}
+        .map-wrapper {
+            max-width: 90%;
+            margin: 1rem auto;
+        }
+        .info-section {
+            flex-direction: column;
+            text-align: center;
+            padding: 0 2rem;
+            margin: 2rem auto;
+            gap: 1rem;  /* Reduced from 2rem to bring elements closer */
+        }
+
+        .info-text {
+            text-align: center;
+            margin-bottom: 0.5rem;  /* Add small margin to maintain some spacing */
+        }
+
+        .info-text h2 {
+            margin-bottom: 0.25rem;  /* Reduced margin under heading */
+        }
+
+        .info-text p {
+            margin: 0.25rem 0;  /* Reduced margins around address lines */
+        }
+
+        .map-wrapper {
+            max-width: 90vmin;
+            margin: 0.5rem auto;  /* Reduced from 1rem to bring closer to text */
+        }
+
+        .clock-wrapper {
+            margin-bottom: 2rem;
+        }
     }
+
 </style>
 <BaseLayout>
-    <Image id="logo" src={grpLogo} alt="Logo for Ghost Runner Pizza" />
-    <div class="info-box">
-        <div class="info location">
-            <h2>LOCATION</h2>
-            <p>742 Main St.</p>
-            <p>Perry, GA 31069</p>
+    <div transition:animate="fade">
+        <Image 
+            src={grpLogo} 
+            alt="Ghost Runner Pizza Logo" 
+            id="logo" 
+            transition:name="logo"
+        />
+
+
+
+        <div class="info-section">
+            <div class="info-text">
+                <h2>WE'RE AT</h2>
+                <p>742 Main St.</p>
+                <p>Perry, GA 31069</p>
+            </div>
+            <div class="map-wrapper">
+                <iframe
+                    loading="lazy"
+                    width="450"
+                    height="450"
+                    style="border:0.25rem solid #002c2e;border-radius:16px"
+                    allowfullscreen
+                    referrerpolicy="no-referrer-when-downgrade"
+                    src={`https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=Ghost+Runner+Pizza,Perry+GA&zoom=17`}
+                >
+                </iframe>
+            </div>
         </div>
 
-        <div class="info hours">
-            <h2>HOURS</h2>
-            <p><span>MON - WED</span>: Closed</p>
-            <p><span>THU - SUN</span>: 5:00pm - 9:00pm</p>
+        <div class="info-section">
+            <BusinessClock client:load size={400}/>
+            <div class="info-text hours-text">
+                <h2>OUR HOURS</h2>
+                <p><span>MON - WED</span>: Closed</p>
+                <p><span>THU - SUN</span>: 5:00pm - 9:00pm</p>
+            </div>
         </div>
     </div>
 </BaseLayout>
