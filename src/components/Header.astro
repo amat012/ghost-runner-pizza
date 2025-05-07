@@ -6,7 +6,7 @@ import NavToggle from './NavToggle.svelte';
 
 const { currentPath } = Astro.props;
 console.log('Header Path:', currentPath); // Debug the received path
-const isHomePage = currentPath.endsWith('/ghost-runner-pizza/') || currentPath === '/ghost-runner-pizza';
+const isHomePage = currentPath.endsWith('/ghost-runner-pizza/') || currentPath === '/ghost-runner-pizza' || currentPath === '';
 ---
 
 <style>
