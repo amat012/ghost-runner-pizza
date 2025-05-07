@@ -3,40 +3,6 @@ import Ticker from "./Ticker.astro";
 
 const year = new Date().getFullYear();
 ---
-
-<footer class="site-footer">
-
-  <div class="footer-inner">
-
-    <div class="footer-left">
-      <nav>
-        <ul class="footer-nav">
-          <li><a href="/">Home</a></li>
-          <li><a href="/menu">Menu</a></li>
-          <li><a href="/contact">Contact</a></li>
-          <li><a href="https://google.com/">Order Online</a></li>
-        </ul>
-      </nav>
-    </div>
-
-
-    <div class="footer-right">
-      <p class="social-label">Follow us:</p>
-      <div class="social-icons">
-        <a href="https://instagram.com/ghostrunnerpizza" target="_blank" aria-label="Instagram">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-instagram-icon lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
-        </a>
-        <a href="https://facebook.com/ghostrunnerpizza" target="_blank" aria-label="Facebook">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook-icon lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-        </a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <p>© {year} Ghost Runner Pizza | All Rights Reserved</p>
-  </div>
-</footer>
-
 <style>
   .site-footer {
     padding: 3rem 5%;
@@ -44,6 +10,9 @@ const year = new Date().getFullYear();
     font-family: "Apfel Grotezk", sans-serif;
     border-top: 1px solid #ccc;
     margin-top: 2rem;
+    flex-shrink: 0;
+    width: 100%;
+    margin-top: auto;
   }
 
   .footer-inner {
@@ -127,3 +96,39 @@ const year = new Date().getFullYear();
     }
   }
 </style>
+
+<footer class="site-footer">
+
+  <div class="footer-inner">
+
+    <div class="footer-left">
+      <nav>
+        <ul class="footer-nav">
+          <li><a href="/">Home</a></li>
+          <li><a href="/menu">Menu</a></li>
+          <li><a href="/contact">Contact</a></li>
+          <li><a href="https://google.com/">Order Online</a></li>
+        </ul>
+      </nav>
+    </div>
+
+
+    <div class="footer-right">
+      <p class="social-label">Follow us:</p>
+      <div class="social-icons">
+        <a href="https://instagram.com/ghostrunnerpizza" target="_blank" aria-label="Instagram">
+          <!-- <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="100" height="100" viewBox="0 0 50 50">
+            <path d="M 16 3 C 8.8545455 3 3 8.8545455 3 16 L 3 34 C 3 41.145455 8.8545455 47 16 47 L 34 47 C 41.145455 47 47 41.145455 47 34 L 47 16 C 47 8.8545455 41.145455 3 34 3 L 16 3 z M 16 5 L 34 5 C 40.054545 5 45 9.9454545 45 16 L 45 34 C 45 40.054545 40.054545 45 34 45 L 16 45 C 9.9454545 45 5 40.054545 5 34 L 5 16 C 5 9.9454545 9.9454545 5 16 5 z M 37 11 C 35.9 11 35 11.9 35 13 C 35 14.1 35.9 15 37 15 C 38.1 15 39 14.1 39 13 C 39 11.9 38.1 11 37 11 z M 25 14 C 18.954545 14 14 18.954545 14 25 C 14 31.045455 18.954545 36 25 36 C 31.045455 36 36 31.045455 36 25 C 36 18.954545 31.045455 14 25 14 z M 25 16 C 29.954545 16 34 20.045455 34 25 C 34 29.954545 29.954545 34 25 34 C 20.045455 34 16 29.954545 16 25 C 16 20.045455 20.045455 16 25 16 z"></path>
+            </svg> -->
+        </a>
+        <a href="https://facebook.com/ghostrunnerpizza" target="_blank" aria-label="Facebook">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook-icon lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© {year} Ghost Runner Pizza | All Rights Reserved</p>
+  </div>
+</footer>
+

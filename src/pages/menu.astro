@@ -1,16 +1,13 @@
 ---
 import "../styles/global.css";
-import Header from "../components/Header.astro";
-import Ticker from "../components/Ticker.astro";
 import MenuItem from "../components/MenuItem.astro";
-import alpinejs from "@astrojs/alpinejs";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import MenuTabs from "../components/MenuTabs.svelte";
 
 const pageTitle = "Menu";
 ---
 
 <style>
-	[x-cloak] { visibility: hidden !important; }
 	html {
 		scroll-behavior: smooth;
 	}
@@ -27,7 +24,7 @@ const pageTitle = "Menu";
 		background-color: #efefef;
 		border-radius: 999px;
 		z-index: -1;
-		box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+		box-shadow: 0 5px 20px #00000026;
 	}
 	.wrapper {
 		position: sticky;
@@ -59,14 +56,6 @@ const pageTitle = "Menu";
 		position: relative;
 	}
 
-	li [type="radio"] {
-		display: none;
-	}
-
-	[type="radio"]:checked ~ {
-		/* border-bottom: 1px solid black; */
-	}
-
 	.tab-label {
 		display: flex;
 		height: 0;
@@ -86,7 +75,7 @@ const pageTitle = "Menu";
 		z-index: 10;
 		width: 100%;
 		overflow: hidden;
-		transition: clip-path 0.65s ease-in-out;
+		transition: clip-path 0.65s cubic-bezier(0, 0, 0.2, 1);
 	}
 	/* ANIMATION SCROLL ISSUE probably due to the scrollTo still continuing after the animation has completed triggering another animation in the process */
 
@@ -98,6 +87,7 @@ const pageTitle = "Menu";
 		font-family: "Pally-Variable", "sans serif";
 		padding: 0 5%;
 		font-weight: 600;
+		color: #002c2e;
 		text-transform: uppercase;
 		font-size: 3.5rem;
 		letter-spacing: -0.075rem;
@@ -122,6 +112,7 @@ const pageTitle = "Menu";
 		font-family: "Pally-Variable", "sans serif";
 		padding: 0 5%;
 		font-weight: 500;
+		color: #002c2e;
 		text-transform: uppercase;
 		font-size: 2.5rem;
 		letter-spacing: -0.075rem;
@@ -142,6 +133,8 @@ const pageTitle = "Menu";
 		gap: 4rem;
 		align-items: flex-start;
 		max-width: 70%;
+		margin-left: auto;
+		margin-right: auto;
 	}
 
 	@media (max-width: 900px) {
@@ -159,6 +152,9 @@ const pageTitle = "Menu";
 
 	.content-container {
 		padding-bottom: 8rem;
+		width: 100%;
+		max-width: 100vw;
+		overflow-x: hidden;
 	}
 
 	.lock-scroll {
@@ -166,286 +162,156 @@ const pageTitle = "Menu";
 		touch-action: none;
 	}
 
-
+	body {
+		overflow-x: hidden;
+	}
 </style>
+
 <BaseLayout>
-	<div
-		class="wrapper"
-		x-data="{
-				insetValue: '0 100% 0 0',
-				paused: false,
-				update(tab) {
-					const insetValues = {
-					pizza: '0 81.5% 0 1%',
-					salad: '0 59.5% 0 22%',
-					beverage: '0 27% 0 44.5%',
-					dessert: '0 0.5% 0 76.5%'
-				};
-				this.insetValue = insetValues[tab] || '0 100% 0 0'
-			},
-			scrollToSection(section) {
-				if (this.paused) { return }
-				this.paused = true;
-				const element = document.querySelector(section);
-				if (element) {
-					const yOffset = -80;
-					const y = element.getBoundingClientRect().top + window.pageYOffset + yOffset;
-					this.lockScroll();
-					window.scrollTo({ top: y, behavior: 'smooth' });
-					this.update(section.substring(1));
-					
-				}
-				setTimeout(() => { this.paused = false; }, 650);
-			},
-			observeSections() {
-				const sections = Array.from(document.querySelectorAll('.menu-container'));
-				const offset = 180;
-
-				window.addEventListener('scroll', () => {
-					if (this.paused) { return }
-					const scrollPos = window.scrollY + offset;
-
-					const bottomThreshold = 50;
-					const scrollBottom = window.innerHeight + window.scrollY;
-					const pageHeight = document.documentElement.scrollHeight;
-					if (pageHeight - scrollBottom < bottomThreshold) {
-						this.update('dessert');
-						return;
-					}
-
-					let currentSection = sections[0];
-					for (let section of sections) {
-						if (section.offsetTop <= scrollPos) {
-							currentSection = section;
-						}
-					}
-
-					const className = currentSection.classList[0];
-					this.update(className);
-				});
-	
-			},
-			lockScroll() {
-    			const scrollBarWidth = window.innerWidth - document.documentElement.clientWidth;
-    			document.body.classList.add('lock-scroll');
-
-    			setTimeout(() => {
-        			document.body.classList.remove('lock-scroll');
-    			}, 650);
-			}
-			}"
-		x-init="observeSections()"
-	>
-		<ul class="menu-select">
-			<li>
-				<input
-					type="radio"
-					id="pizza-tab"
-					name="menu-tabs"
-					@click="scrollToSection('.pizza');"
-				/>
-				<label for="pizza-tab" class="tab-label">Pizza</label>
-			</li>
-			<li>
-				<input
-					type="radio"
-					id="salad-tab"
-					name="menu-tabs"
-					@click="scrollToSection('.salad');"
-				/>
-				<label for="salad-tab" class="tab-label">Salad</label>
-			</li>
-			<li>
-				<input
-					type="radio"
-					id="beverage-tab"
-					name="menu-tabs"
-					@click="scrollToSection('.beverage');"
-				/>
-				<label for="beverage-tab" class="tab-label">Beverages</label>
-			</li>
-			<li>
-				<input
-					type="radio"
-					id="dessert-tab"
-					name="menu-tabs"
-					@click="scrollToSection('.dessert');"
-				/>
-				<label for="dessert-tab" class="tab-label">Dessert</label>
-			</li>
-		</ul>
-		<div
-			aria-hidden="true"
-			class="clip-path-container"
-			x-cloak
-			x-bind:style="`clip-path: inset(${insetValue} round 1em)`"
-		>
-			<ul class="menu-select list-overlay">
-				<li>
-					<label for="pizza-tab" class="tab-label overlay"
-						>Pizza</label
-					>
-				</li>
-				<li>
-					<label for="salad-tab" class="tab-label overlay"
-						>Salad</label
-					>
-				</li>
-				<li>
-					<label for="beverage-tab" class="tab-label overlay"
-						>Beverages</label
-					>
-				</li>
-				<li>
-					<label for="dessert-tab" class="tab-label overlay"
-						>Dessert</label
-					>
-				</li>
-			</ul>
-		</div>
-	</div>
-
-	<div class="content-container">
-		<section class="pizza menu-container">
-			<h2>Pizza</h2>
-			<h4>Additional side sauces for $1.50:</h4>
-			<h5>Calabrian Chili Cream • Hot Cane Syrup • Ranch</h5>
-			<div class="item-container">
-				<MenuItem
-					name="Cheese"
-					description="Tomato sauce and diced mozzarella"
-					price={14.0}
-				/>
-				<MenuItem
-					name="Margherita"
-					description="Classic pizza with tomato sauce, mozzarella, fresh basil"
-					price={15.0}
-				/>
-				<MenuItem
-					name="Pepperoni"
-					description="Red sauce, mozzarella, pepperoni"
-					price={16.0}
-				/>
-				<MenuItem
-					name="Sausage"
-					description="Vodka sauce, Mozzerella, spicy ground sausage from Durden's Prime Meats"
-					price={16.0}
-				/>
-				<MenuItem
-					name="Pesto"
-					description="Pesto base, mozzarella, ricotta cheese"
-					price={16.0}
-				/>
-				<MenuItem
-					name="Garlic"
-					description="Olive oil, housemade garlic paste, mozzarella, goat cheese, capers, lemon-tossed arugala"
-					price={17.0}
-				/>
-				<MenuItem
-					name="Philly Cheese Steak"
-					description="Olive oil, provolone, mozz, grilled onions, sauteed bell peppers, steak"
-					limitedTime={true}
-					price={18.0}
-				/>
-			</div>
-		</section>
-		<section class="salad menu-container">
-			<h2>Salad</h2>
-			<div class="item-container">
-				<MenuItem
-					name="Kale Caesar"
-					description="Kale salad with housemade Caesar dressing, croutons, and fresh parmesan"
-					price={9.0}
-				/>
-			</div>
-		</section>
-		<section class="beverage menu-container">
-			<h2>Beverages</h2>
-			<div class="item-container">
-				<MenuItem
-					name="Bottled Soda"
-					description="Coke • Sprite • Fanta • Root Beer"
-					price={3.0}
-				/>
-				<MenuItem
-					name="Canned Soda"
-					description="Diet Coke • Coke Zero"
-					price={2.0}
-				/>
-				<MenuItem
-					name="Yoohoo"
-					description="Chocolate milk"
-					price={3.0}
-				/>
-				<MenuItem
-					name="Topo Chico"
-					description="Sparkling mineral water"
-					price={3.0}
-				/>
-			</div>
-			<h3>Alcohol</h3>
-			<h6>More options in-house</h6>
-			<div class="item-container">
-				<MenuItem
-					name="Miller High Life Pony"
-					description="Crisp and light in a 7 oz. pony bottle. Bucket of 6 available"
-					price={2.0}
-				/>
-				<MenuItem
-					name="Coors Banquet"
-					description="Rich, golden lager with a smooth finish"
-					price={4.0}
-				/>
-				<MenuItem
-					name="Miller Lite"
-					description="Light lager with low bitterness and subtle taste"
-					price={4.0}
-				/>
-				<MenuItem
-					name="Modelo"
-					description="Smooth, well-balanced Mexican lager with just a touch of sweetness"
-					price={5.0}
-				/>
-				<MenuItem
-					name="Tropicália"
-					description="Creature Comforts' signature IPA. Balanced, juicy, with citrus, tropical fruit, and a hint of bitterness"
-					price={6.0}
-				/>
-				<MenuItem
-					name="Samuel Smith's Cider"
-					description="British medium-dry sparkling cider with light body and clean apple flavor"
-					price={8.0}
-				/>
-				<MenuItem
-				name="Another Drink"
-				description="British medium-dry sparkling cider with light body and clean apple flavor"
-				price={8.0}
-			/>
-			</div>
-			<h3>Frozen Cocktails</h3>
-			<div class="item-container">
-				<MenuItem
-					name="Painkiller"
-					description="Frozen cocktail with rum, pineapple juice, orange juice, and cream of coconut "
-					price={12.0}
-					limitedTime={true}
-				/>
-			</div>
-		</section>
-		<section class="dessert menu-container">
-			<h2>Dessert</h2>
-			<div class="item-container">
-				<MenuItem
-					name="Chocolate Chip Cookie"
-					description="Homemade treat with the perfect balance of sweetness and richness"
-					price={3.0}
-				/>
-				<MenuItem
-					name="Ice Cream Sandwich"
-					description="Blue Bunny classic with vanilla ice cream and two chocolate wafers"
-					price={2.0}
-				/>
-			</div>
-		</section>
-	</div>
+    <div transition:animate="fade">
+        <MenuTabs client:load />
+        <div class="content-container">
+            <section class="pizza menu-container">
+                <h2>Pizza</h2>
+                <h4>Additional side sauces for $1.50:</h4>
+                <h5>Calabrian Chili Cream • Hot Cane Syrup • Ranch</h5>
+                <div class="item-container">
+                    <MenuItem
+                        name="Cheese"
+                        description="Tomato sauce and diced mozzarella"
+                        price={14.0}
+                    />
+                    <MenuItem
+                        name="Margherita"
+                        description="Classic pizza with tomato sauce, mozzarella, fresh basil"
+                        price={15.0}
+                    />
+                    <MenuItem
+                        name="Pepperoni"
+                        description="Red sauce, mozzarella, pepperoni"
+                        price={16.0}
+                    />
+                    <MenuItem
+                        name="Sausage"
+                        description="Vodka sauce, Mozzerella, spicy ground sausage from Durden's Prime Meats"
+                        price={16.0}
+                    />
+                    <MenuItem
+                        name="Pesto"
+                        description="Pesto base, mozzarella, ricotta cheese"
+                        price={16.0}
+                    />
+                    <MenuItem
+                        name="Garlic"
+                        description="Olive oil, housemade garlic paste, mozzarella, goat cheese, capers, lemon-tossed arugala"
+                        price={17.0}
+                    />
+                    <MenuItem
+                        name="Philly Cheese Steak"
+                        description="Olive oil, provolone, mozz, grilled onions, sauteed bell peppers, steak"
+                        limitedTime={true}
+                        price={18.0}
+                    />
+                </div>
+            </section>
+            <section class="salad menu-container">
+                <h2>Salad</h2>
+                <div class="item-container">
+                    <MenuItem
+                        name="Kale Caesar"
+                        description="Kale salad with housemade Caesar dressing, croutons, and fresh parmesan"
+                        price={9.0}
+                    />
+                </div>
+            </section>
+            <section class="beverage menu-container">
+                <h2>Beverages</h2>
+                <div class="item-container">
+                    <MenuItem
+                        name="Bottled Soda"
+                        description="Coke • Sprite • Fanta • Root Beer"
+                        price={3.0}
+                    />
+                    <MenuItem
+                        name="Canned Soda"
+                        description="Diet Coke • Coke Zero"
+                        price={2.0}
+                    />
+                    <MenuItem
+                        name="Yoohoo"
+                        description="Chocolate milk"
+                        price={3.0}
+                    />
+                    <MenuItem
+                        name="Topo Chico"
+                        description="Sparkling mineral water"
+                        price={3.0}
+                    />
+                </div>
+                <h3>Alcohol</h3>
+                <h6>More options in-house</h6>
+                <div class="item-container">
+                    <MenuItem
+                        name="Miller High Life Pony"
+                        description="Crisp and light in a 7 oz. pony bottle. Bucket of 6 available"
+                        price={2.0}
+                    />
+                    <MenuItem
+                        name="Coors Banquet"
+                        description="Rich, golden lager with a smooth finish"
+                        price={4.0}
+                    />
+                    <MenuItem
+                        name="Miller Lite"
+                        description="Light lager with low bitterness and subtle taste"
+                        price={4.0}
+                    />
+                    <MenuItem
+                        name="Modelo"
+                        description="Smooth, well-balanced Mexican lager with just a touch of sweetness"
+                        price={5.0}
+                    />
+                    <MenuItem
+                        name="Tropicália"
+                        description="Creature Comforts' signature IPA. Balanced, juicy, with citrus, tropical fruit, and a hint of bitterness"
+                        price={6.0}
+                    />
+                    <MenuItem
+                        name="Samuel Smith's Cider"
+                        description="British medium-dry sparkling cider with light body and clean apple flavor"
+                        price={8.0}
+                    />
+                    <MenuItem
+                    name="Another Drink"
+                    description="British medium-dry sparkling cider with light body and clean apple flavor"
+                    price={8.0}
+                />
+                </div>
+                <h3>Frozen Cocktails</h3>
+                <div class="item-container">
+                    <MenuItem
+                        name="Painkiller"
+                        description="Frozen cocktail with rum, pineapple juice, orange juice, and cream of coconut "
+                        price={12.0}
+                        limitedTime={true}
+                    />
+                </div>
+            </section>
+            <section class="dessert menu-container">
+                <h2>Dessert</h2>
+                <div class="item-container">
+                    <MenuItem
+                        name="Chocolate Chip Cookie"
+                        description="Homemade treat with the perfect balance of sweetness and richness"
+                        price={3.0}
+                    />
+                    <MenuItem
+                        name="Ice Cream Sandwich"
+                        description="Blue Bunny classic with vanilla ice cream and two chocolate wafers"
+                        price={2.0}
+                    />
+                </div>
+            </section>
+        </div>
+    </div>
 </BaseLayout>
