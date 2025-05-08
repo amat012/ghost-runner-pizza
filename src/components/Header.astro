@@ -11,11 +11,11 @@ const isHomePage = currentPath.endsWith('/ghost-runner-pizza/') || currentPath =
 
 <style>
     nav {
-        margin-top: 1rem;
+        padding: 1rem 0;
         background-color: #f7f2de;
-        margin-bottom: 4rem;
          /* Increased margin to add more space below */
         position: relative;
+        height: 6rem;
     }
 
     .nav-list {
@@ -29,7 +29,6 @@ const isHomePage = currentPath.endsWith('/ghost-runner-pizza/') || currentPath =
     }
 
     .nav-logo {
-        margin-left: 1rem;
         margin-top: 3rem;
         display: flex;
         justify-content: center;
@@ -110,51 +109,7 @@ const isHomePage = currentPath.endsWith('/ghost-runner-pizza/') || currentPath =
         justify-content: center;
     }
 
-    .mobile-modal {
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: 30vw;
-        height: 100vh;
-        background-color: rgba(247, 242, 222, 0.8);
-        backdrop-filter: blur(6px);
-        z-index: 9998;
-        border-left: 2px solid #002c2e;
-
-        transform: translateX(100%);
-        opacity: 0;
-        transition:
-            transform 0.3s ease,
-            opacity 0.3s ease;
-        pointer-events: none;
-    }
-
-    .mobile-modal.show {
-        transform: translateX(0);
-        opacity: 1;
-        pointer-events: auto;
-    }
-
-    @media (max-width: 1024px) {
-        .mobile-modal {
-            width: 100vw;
-        }
-    }
-
     /*1024px breakpoint for modal */
-
-    .mobile-modal a {
-        padding: 0.5rem 1.5rem;
-        font-size: 2rem;
-        color: #002c2e;
-        font-weight: 400;
-        text-decoration: none;
-        text-align: center;
-    }
-
-    .mobile-modal a:hover {
-        color: #00ff08;
-    }
 
     .nav-list {
         justify-content: center;
@@ -180,24 +135,8 @@ const isHomePage = currentPath.endsWith('/ghost-runner-pizza/') || currentPath =
                 />
             </a>
         </li>
-
-        <li class="nav-buttons">
-            <a href="/ghost-runner-pizza/menu/" class="nav-button">Menu</a>
-            <a href="https://google.com" class="nav-button">Order Online</a>
-        </li>
         <li class="nav-item hamburger-wrapper">
-            <NavToggle client:load />
+            <NavToggle client:load transition:persist />
         </li>
     </ul>
-
-    <!-- Remove Alpine.js syntax from modal -->
-    <div class="mobile-modal">
-        <ul>
-            <li>
-                <ion-icon name="pizza-outline"></ion-icon>
-                <a href="/ghost-runner-pizza/menu/">Menu</a>
-            </li>
-        </ul>
-        <a href="https://google.com">Order Online</a>
-    </div>
 </nav>
