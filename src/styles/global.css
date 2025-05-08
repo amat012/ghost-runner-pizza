@@ -140,52 +140,6 @@ table {
 }
 
 
-/* nav styles */
-
-.nav-links {
-  width: 100%;
-  top: 5rem;
-  left: 48px;
-  display: none;
-  margin: 0;
-}
-
-.nav-links a {
-  display: block;
-  text-align: center;
-  padding: 10px 0;
-  font-size: 1.2rem;
-  color: black;
-  text-decoration: none;
-  font-weight: bold;
-  text-transform: uppercase;
-}
-
-.nav-links a:hover,
-.nav-links a:focus {
-  text-decoration: underline;
-}
-
-.expanded {
-  display: unset;
-}
-
-@media screen and (min-width: 650px) {
-  .nav-links {
-    margin-left: 5em;
-    display: block;
-    position: static;
-    width: auto;
-    background: none;
-  }
-
-  .nav-links a {
-    display: inline-block;
-    padding: 15px 20px;
-  }
-
-}
-
 @font-face {
   font-family: "Apfel Grotezk";
   src: url("../assets/ApfelGrotezk-Satt.woff2") format("woff2");
@@ -229,11 +183,4 @@ table {
 html {
   background-color: var(--background-color);
   height: 100%;
-}
-
-/* Ensure main content takes up available space */
-div[data-astro-transition-scope] {
-  flex: 1 0 auto;
-  display: flex;
-  flex-direction: column;
 }
