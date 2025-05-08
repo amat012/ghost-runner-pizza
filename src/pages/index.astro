@@ -11,67 +11,28 @@ const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY;
 <style>
     #logo {
         height: auto;
-        width: min(60vw, 800px);  /* Use viewport width with a max size */
+        width: min(60vw, 800px);
         display: block;
         margin-left: auto;
         margin-right: auto;
-        margin-top: clamp(2rem, 4vw, 4rem);
+        /* margin-top: clamp(1rem, 2vw, 2rem); */
         margin-bottom: clamp(1rem, 2vw, 2rem);
         z-index: 9995;
-        margin-bottom: 6rem;  /* Reduce from 8rem for better visual flow */
+        margin-bottom: 4rem;
     }
 
     #title-loc {
         font-size: 2rem;
     }
 
-    .info-box {
-        margin-top: 3rem;
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		align-items: flex-start;
-		max-width: 55%;
-        margin-left:auto;
-        margin-right: auto;
-    }
-    .info {
-        margin-bottom: 2rem;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: space-evenly;
-    }
-
-    .info > h2 {
-        display: inline;
-        width: fit-content;
-        border-top: 2px solid #002c2e;
-        border-bottom: 2px solid #002c2e;
-        font-family: "Apfel Grotezk";
-        font-weight: 800;
-        font-size: 1.75rem;
-        margin-bottom: 0.5rem;
-        color: #002c2e;
-    }
-
-    .info > p {
-        font-family: "Apfel Grotezk";
-        font-weight: normal;
-        font-size: 1rem;
-        color: #002c2e;
-    }
-
-
-
     .info-section {
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 2rem;
-        margin: 4rem auto;
-        max-width: 900px;  /* Reduced from 1200px to bring content closer */
+        gap: 4rem;
+        margin: 0 auto 4rem;
+        max-width: 900px;
         padding: 0 1rem;
-        margin-bottom: 8rem;  /* Reduce from 12rem - current spacing feels too large */
     }
 
     .info-text {
@@ -116,6 +77,7 @@ const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY;
     .hours-text {
         text-align: left;
         justify-content: center;
+        width: 70%
     }
 
     .hours-text > p span {
@@ -134,17 +96,36 @@ const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY;
         animation: pulse 2s ease-in-out infinite;
     }
 
-    .status-indicator {
+    .custom-shape-divider-bottom-1746665334 {
         position: absolute;
-        bottom: -1.5rem;
-        font-family: "Apfel Grotezk";
-        font-size: 0.875rem;
-        font-weight: bold;
-        color: #ff3b30;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
     }
 
-    .status-indicator.open {
-        color: #34c759;
+    .custom-shape-divider-bottom-1746665334 svg {
+        position: relative;
+        display: block;
+        width: calc(153% + 1.3px);
+        height: 60px;
+    }
+
+    .custom-shape-divider-bottom-1746665334 .shape-fill {
+        fill: #efe3b4;
+    }
+
+    .hero {
+        position: relative;
+        background-color: #f7f2de;  /* Match your background color */
+        overflow: hidden;
+    }
+
+    .content-wrapper {
+        background-color: #efe3b4;
+        width: 100%;
+        padding: 4rem 0;
     }
 
     @keyframes pulse {
@@ -157,83 +138,129 @@ const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY;
         #logo {
             width: 80vw;  /* Larger percentage on mobile */
         }
-        .info-box {
-			grid-template-columns: 1fr;
-            width: 100%;
-		}
+        
         .map-wrapper {
             max-width: 90%;
-            margin: 1rem auto;
+            margin: 0 auto;
         }
         .info-section {
             flex-direction: column;
             text-align: center;
-            padding: 0 2rem;
-            margin: 2rem auto;
-            gap: 1rem;  /* Reduced from 2rem to bring elements closer */
+            padding: 2rem;
+            margin: 0 auto 2rem;
+            gap: 1rem;  Reduced from 2rem to bring elements closer
+            align-items: center;
+            width: 100%;
         }
 
         .info-text {
             text-align: center;
             margin-bottom: 0.5rem;  /* Add small margin to maintain some spacing */
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .info-text h2 {
+        .info-text > h2 {
             margin-bottom: 0.25rem;  /* Reduced margin under heading */
+            text-align: center;
+            width: 100%;
+            font-size: clamp(3rem, 5vw, 4rem); 
         }
 
-        .info-text p {
+        .info-text > p {
             margin: 0.25rem 0;  /* Reduced margins around address lines */
+            text-align: center;
+            width: 100%;
         }
 
         .map-wrapper {
-            max-width: 90vmin;
+            max-width: 95vmin;
             margin: 0.5rem auto;  /* Reduced from 1rem to bring closer to text */
+            width: 100%;
+            max-width: 450px;
+        }
+
+        .map-wrapper > iframe {
+            width: 100%;
+            height: 100%;
         }
 
         .clock-wrapper {
             margin-bottom: 2rem;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 2rem auto;
+        }
+
+        .hours-text {
+            text-align: center;
+            width: 100%;
+            padding: 0 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 280px;  /* Add minimum width for mobile */
+        }
+
+        .hours-text > p {
+            font-size: clamp(1rem, 4vw, 2.25rem);  /* Slightly reduced font size */
+            white-space: nowrap;  /* Prevent text wrapping */
         }
     }
+
+    
 
 </style>
 <BaseLayout>
     <div transition:animate="fade">
-        <Image 
-            src={grpLogo} 
-            alt="Ghost Runner Pizza Logo" 
-            id="logo" 
-            transition:name="logo"
-        />
-
-
-
-        <div class="info-section">
-            <div class="info-text">
-                <h2>WE'RE AT</h2>
-                <p>742 Main St.</p>
-                <p>Perry, GA 31069</p>
-            </div>
-            <div class="map-wrapper">
-                <iframe
-                    loading="lazy"
-                    width="450"
-                    height="450"
-                    style="border:0.25rem solid #002c2e;border-radius:16px"
-                    allowfullscreen
-                    referrerpolicy="no-referrer-when-downgrade"
-                    src={`https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=Ghost+Runner+Pizza,Perry+GA&zoom=17`}
-                >
-                </iframe>
+        <div class="hero">
+            <Image 
+                src={grpLogo} 
+                alt="Ghost Runner Pizza Logo" 
+                id="logo" 
+                transition:name="logo"
+            />
+            <div class="custom-shape-divider-bottom-1746665334">
+                <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
+                    <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
+                </svg>
             </div>
         </div>
 
-        <div class="info-section">
-            <BusinessClock client:load size={400}/>
-            <div class="info-text hours-text">
-                <h2>OUR HOURS</h2>
-                <p><span>MON - WED</span>: Closed</p>
-                <p><span>THU - SUN</span>: 5:00pm - 9:00pm</p>
+        <div class="content-wrapper">
+            <div class="info-section">
+                <div class="info-text">
+                    <h2>WE'RE AT</h2>
+                    <p>742 Main St.</p>
+                    <p>Perry, GA 31069</p>
+                </div>
+                <div class="map-wrapper">
+                    <iframe
+                        loading="lazy"
+                        width="450"
+                        height="450"
+                        style="border:0.25rem solid #002c2e;border-radius:16px"
+                        allowfullscreen
+                        referrerpolicy="no-referrer-when-downgrade"
+                        src={`https://www.google.com/maps/embed/v1/place?key=${API_KEY}&q=Ghost+Runner+Pizza,Perry+GA&zoom=16`}
+                    >
+                    </iframe>
+                </div>
+            </div>
+
+            <div class="info-section">
+                <BusinessClock client:load size={400}/>
+                <div class="info-text hours-text">
+                    <h2>OUR HOURS</h2>
+                    <p><span>MON - WED</span>: Closed</p>
+                    <p><span>THU - SUN</span>: 5:00pm - 9:00pm</p>
+                </div>
+
             </div>
         </div>
     </div>

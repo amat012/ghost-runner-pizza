@@ -109,7 +109,7 @@
     .clock-container {
         position: relative;
         max-width: 90vmin;
-        margin: 0 auto;
+        /* margin: 0 auto; */
     }
 
     .clock-face {
@@ -146,7 +146,26 @@
     @media (max-width: 800px) {
         .clock-container {
             width: 90vw !important;
-            height: 90vw !important;
+            /* height: 90vw !important; */
+            max-width: 450px;  /* Add max-width constraint */
+            /* margin: 0 auto;    Ensure center alignment */
+            display: flex;     /* Use flexbox for alignment */
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .clock-face {
+            margin-top: -4rem;
+        }
+
+        .status-indicator {
+            position: relative; /* Change from absolute */
+            bottom: 0;
+            left: 0;
+            transform: none;   /* Remove transform since using flex */
+            margin-top: 0.5rem;  /* Add spacing */
+            text-align: center;
+            width: 100%;
         }
     }
 
@@ -157,5 +176,13 @@
 
     .minute-hand {
         transform-origin: center;
+    }
+
+    /* Base styles */
+    .clock-container {
+        position: relative;
+        width: 100%;
+        max-width: 450px;
+        box-sizing: border-box;
     }
 </style>
