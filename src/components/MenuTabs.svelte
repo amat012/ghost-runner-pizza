@@ -125,13 +125,13 @@
 <style>
   .wrapper {
     position: sticky;
-    top: 2rem;
+    top: 4.25rem;
     display: flex;
     flex-direction: row;
     align-items: center;
     width: fit-content;
     margin: 0 auto;
-    margin-top: 3rem;
+    margin-top: 2rem;
     font-family: "Apfel Grotezk";
     font-weight: 500;
     font-size: 1rem;
@@ -203,5 +203,12 @@
 
   .overlay {
     color: white;
+  }
+
+  @media (max-width: 405px) {
+    .wrapper {
+      transform: scale(0.90);
+    }
+
   }
 </style>

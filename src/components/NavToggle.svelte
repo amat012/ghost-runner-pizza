@@ -93,7 +93,7 @@
 
     .close-button {
         position: absolute;
-        top: 1rem;
+        top: 3.25rem;
         right: 1rem;
         background: none;
         border: none;
@@ -123,9 +123,9 @@
 
 <button class="hamburger {open ? 'hide' : ''}" aria-label="Toggle navigation" on:click={toggleMenu}>
     <svg width="36" height="36" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <line x1="3" y1="6" x2="21" y2="6" stroke="black" stroke-width="2" stroke-linecap="round"></line>
-        <line x1="3" y1="12" x2="21" y2="12" stroke="black" stroke-width="2" stroke-linecap="round"></line>
-        <line x1="3" y1="18" x2="21" y2="18" stroke="black" stroke-width="2" stroke-linecap="round"></line>
+        <line x1="3" y1="6" x2="21" y2="6" stroke="#002C2E" stroke-width="2" stroke-linecap="round"></line>
+        <line x1="3" y1="12" x2="21" y2="12" stroke="#002C2E" stroke-width="2" stroke-linecap="round"></line>
+        <line x1="3" y1="18" x2="21" y2="18" stroke="#002C2E" stroke-width="2" stroke-linecap="round"></line>
     </svg>
 </button>
 
@@ -139,6 +139,11 @@
         </svg>
     </button>
     <ul>
+        <li>
+            <a href="/ghost-runner-pizza/" on:click={handleNavClick}>
+                Home
+            </a>
+        </li>
         <li>
             <a href="/ghost-runner-pizza/menu/" on:click={handleNavClick}>
                 Menu

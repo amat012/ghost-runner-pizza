@@ -9,7 +9,18 @@
     let minuteRotation = 0;
     let showArc = true;
     let estTime;
+    let closedMessage = "te";
 
+    function updateClosedMessage(hours, minutes, day) {
+        if ((day >= 5) || ((day === 4 || day === 0) && hours < 17)) {
+            const remainingHours = 16 - hours;
+            const remainingMinutes = 60 - minutes;
+            // return `We are closed. Reopening in ${remainingHours}h ${remainingMinutes}m. See you then!`;
+            return `We are closed. Reopening in ${remainingHours}h ${remainingMinutes}m`;
+        } else {
+            return "We are currently closed. See you on Thursday!"
+        }
+    }
     function updateTimeDisplay() {
         estTime = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
         const hours = estTime.getHours();
@@ -21,11 +32,26 @@
         showArc = !(hours >= 1 && hours < 9);
         hourRotation = ((hours % 12) * 30) + (minutes * 0.5);
         minuteRotation = minutes * 6;
+
+        if (!isOpen) {
+            closedMessage = updateClosedMessage(hours, minutes, day);
+        }
+    }
+
+    function syncWithRealClock() {
+        const now = new Date();
+        const delay = (60 - now.getSeconds()) * 1000 - now.getMilliseconds();
+        
+        updateTimeDisplay();
+        
+        setTimeout(() => {
+            updateTimeDisplay();
+            timer = setInterval(updateTimeDisplay, 60000);
+        }, delay);
     }
 
     onMount(() => {
-        updateTimeDisplay();
-        timer = setInterval(updateTimeDisplay, 60000);
+        syncWithRealClock();
     });
 
     onDestroy(() => {
@@ -76,7 +102,7 @@
             x2="100"
             y2="60"
             stroke="#002c2e"
-            stroke-width="4"
+            stroke-width="2"
             stroke-linecap="round"
             text-anchor="middle"
             transform="rotate({hourRotation}, 0, 0)"
@@ -90,7 +116,7 @@
             x2="100"
             y2="40"
             stroke="#002c2e"
-            stroke-width="2"
+            stroke-width="3"
             stroke-linecap="round"
             transform="rotate({minuteRotation}, 0, 0)"
             class="minute-hand"
@@ -101,15 +127,20 @@
 
     </svg>
     <div class="status-indicator" class:open={isOpen}>
-        {isOpen ? 'OPEN NOW' : 'CLOSED'}
+        {#if isOpen}
+            Open
+        {:else}
+            <span class="status-message">{closedMessage}</span>
+        {/if}
     </div>
 </div>
 
 <style>
     .clock-container {
+        margin-top: 8rem;
         position: relative;
         max-width: 90vmin;
-        /* margin: 0 auto; */
+        
     }
 
     .clock-face {
@@ -146,6 +177,7 @@
     @media (max-width: 800px) {
         .clock-container {
             width: 90vw !important;
+            height: 90vw !important; /* Use vw for height to maintain aspect ratio */
             /* height: 90vw !important; */
             max-width: 450px;  /* Add max-width constraint */
             /* margin: 0 auto;    Ensure center alignment */

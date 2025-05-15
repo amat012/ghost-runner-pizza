@@ -6,17 +6,18 @@ const year = new Date().getFullYear();
 
 <style>
   .site-footer {
-    padding: 3rem 5%;
+    padding: 3rem 0;
     background: #f7f7f7;
     font-family: "Apfel Grotezk", sans-serif;
     border-top: 1px solid #ccc;
-    margin-top: 2rem;
-    flex-shrink: 0;
-    width: 100%;
-    margin-top: auto;
+    margin: auto 0 0 0;
+    width: 100vw;
+    bottom: 0;
+    position: relative;
   }
 
   .footer-inner {
+    padding: 0 10%;
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
@@ -180,6 +181,6 @@ const year = new Date().getFullYear();
     </div>
   </div>
   <div class="footer-bottom">
-    <p>© {year} Ghost Runner Pizza | All Rights Reserved</p>
+    <p>Ghost Runner Pizza</p>
   </div>
 </footer>

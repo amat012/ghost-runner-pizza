@@ -12,77 +12,6 @@ const pageTitle = "Menu";
 		scroll-behavior: smooth;
 	}
 
-	.wrapper::before {
-		content: "";
-		position: absolute;
-		padding: 0.25rem;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		width: 100%;
-		height: 100%;
-		background-color: #efefef;
-		border-radius: 999px;
-		z-index: -1;
-		box-shadow: 0 5px 20px #00000026;
-	}
-	.wrapper {
-		position: sticky;
-		top: 2rem;
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		width: fit-content;
-		margin: 0 auto;
-		margin-top: 3rem;
-		font-family: "Apfel Grotezk";
-		font-weight: 500;
-		font-size: 1rem;
-		margin-bottom: 4rem;
-		z-index: 999;
-
-		/* clip-path: inset(0 81% 0 8% round 1rem); */
-	}
-
-	.menu-select {
-		position: relative;
-		display: flex;
-		width: 100%;
-		justify-content: center;
-		gap: 0.5rem;
-	}
-
-	li {
-		position: relative;
-	}
-
-	.tab-label {
-		display: flex;
-		height: 0;
-		align-items: center;
-		gap: 1rem;
-		border-radius: 100%;
-		padding: 1rem;
-		font-size: 1rem;
-		color: #002c2e;
-	}
-
-	.list-overlay {
-		background: #416d6f;
-	}
-	.clip-path-container {
-		position: absolute;
-		z-index: 10;
-		width: 100%;
-		overflow: hidden;
-		transition: clip-path 0.65s cubic-bezier(0, 0, 0.2, 1);
-	}
-	/* ANIMATION SCROLL ISSUE probably due to the scrollTo still continuing after the animation has completed triggering another animation in the process */
-
-	.overlay {
-		color: white;
-	}
-
 	.menu-container > h2 {
 		font-family: "Pally-Variable", "sans serif";
 		padding: 0 5%;
@@ -108,7 +37,7 @@ const pageTitle = "Menu";
 	}
 
 	.menu-container > h3 {
-		margin-top: 4rem;
+		margin-top: 6.25rem;
 		font-family: "Pally-Variable", "sans serif";
 		padding: 0 5%;
 		font-weight: 500;
@@ -139,6 +68,8 @@ const pageTitle = "Menu";
 
 	@media (max-width: 900px) {
 		.item-container {
+            margin-left: 0;
+            margin-right: 0;
 			grid-template-columns: 1fr;
 		}
 	}
@@ -153,7 +84,7 @@ const pageTitle = "Menu";
 	.content-container {
 		padding-bottom: 8rem;
 		width: 100%;
-		max-width: 100vw;
+		max-width: 100%;
 		overflow-x: hidden;
 	}
 

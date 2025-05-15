@@ -15,9 +15,10 @@ const currentPath = Astro.url.pathname;
     <ViewTransitions />
   </head>
   <body>
+    <Ticker transition:persist />
     <Header currentPath={currentPath} />
     <slot />
-    <Ticker transition:persist />
+
     <Footer />
   </body>
 </html>
