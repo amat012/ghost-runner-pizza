@@ -137,6 +137,8 @@
     font-size: 1rem;
     margin-bottom: 4rem;
     z-index: 999;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
   .wrapper::before {
@@ -187,6 +189,8 @@
     border: none;
     font-family: inherit;
     font-weight: inherit;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
   .list-overlay {
