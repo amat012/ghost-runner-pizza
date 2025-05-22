@@ -1,6 +1,7 @@
 ---
-import '../styles/global.css';
-import BaseLayout from '../layouts/BaseLayout.astro';
+import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ContactForm from "../components/ContactForm.svelte";
 const pageTitle = "Contact";
 ---
 
@@ -53,7 +54,7 @@ const pageTitle = "Contact";
 
     details summary .icon::before,
     details summary .icon::after {
-        content: '';
+        content: "";
         position: absolute;
         background-color: #002c2e;
         border-radius: 2px;
@@ -110,28 +111,84 @@ const pageTitle = "Contact";
             transform: translateY(0);
         }
     }
+
+    .contact-wrapper {
+        width: min(1200px, 95%);
+        margin: 0 auto;
+        padding: 4rem 0;
+    }
+
+    .faq-section {
+        margin-bottom: 4rem;
+    }
+
+    .contact-section {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid #002c2e20;
+    }
+
+        .contact-section p {
+        font-family: "Apfel Grotezk", sans-serif;
+        justify-content: center;
+        text-align: left;
+        padding-left: 2.5rem;
+        margin-top: 0.5rem;
+        color: #416d6f;
+    }
+
+    .faq-section h2,
+    .contact-section h2 {
+        font-family: "Pally-Variable", sans-serif;
+        font-weight: 600;;
+        color: #002c2e;
+        font-size: clamp(2rem, 5vw, 3rem);
+        padding-left: 2.5rem;
+        text-align: left;
+    }
+
+    .faq-section h2 {
+        padding-left: 0;
+        text-align: center;
+    }
+    
+    .feedback-form {
+        margin: 40px 40px;
+        min-width: 250px;
+        width: 45%;
+        font-family: "Apfel Grotezk", sans-serif;
+    }
 </style>
-
+    
 <BaseLayout>
-    <div>
-        <p>Test text for contact page</p>
-    </div>
-
-    <div class="questions-container">
-        <details class="question">
-            <summary>
-                Do you have a phone number?
-                <span class="icon"></span>
-            </summary>
-            <p>No we do not</p>
-        </details>
-        <details class="question">
-            <summary>
-                Do you do delivery?
-                <span class="icon"></span>
-            </summary>
-            <p>No we do not do delivery</p>
-        </details>
-        <details class="question"></details>
+    <div class="contact-wrapper">
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <h2>Frequently Asked Questions</h2>
+            <div class="questions-container">
+                <details class="question">
+                    <summary>
+                        Do you have a phone number?
+                        <span class="icon"></span>
+                    </summary>
+                    <p>No we do not</p>
+                </details>
+                <details class="question">
+                    <summary>
+                        Do you do delivery?
+                        <span class="icon"></span>
+                    </summary>
+                    <p>No we do not do delivery</p>
+                </details>
+            </div>
+        </section>
+            <!-- Contact Form Section -->
+            <section class="contact-section">
+                <h2>Get in Touch</h2>
+                <p>We'd love to hear from you! Send us a message through the form below or via social media.</p>
+                <div class="feedback-form">
+                    <ContactForm client:load />
+                </div>
+            </section>
     </div>
 </BaseLayout>
