@@ -29,6 +29,7 @@
 
 <style>
     form {
+        margin: auto;
         min-width: 250px;
         width: min(450px, 90%);
         font-family: "Apfel Grotezk", sans-serif;
