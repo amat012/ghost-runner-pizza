@@ -23,7 +23,7 @@
         }
     }
     function updateTimeDisplay() {
-        estTime = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Riyadh' }));
+        estTime = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
         console.log(estTime);
         const hours = estTime.getHours();
         const minutes = estTime.getMinutes();
