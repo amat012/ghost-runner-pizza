@@ -9,34 +9,36 @@
     let minuteRotation = 0;
     let showArc = true;
     let estTime;
-    let closedMessage = "te";
+    let statusMessage = "";
 
-    function updateClosedMessage(hours, minutes, day) {
-        if ((day >= 5) || ((day === 4 || day === 0) && hours < 17)) {
-            const remainingHours = 16 - hours;
-            const remainingMinutes = 60 - minutes;
-            // return `We are closed. Reopening in ${remainingHours}h ${remainingMinutes}m. See you then!`;
-            return `We are closed. Reopening in ${remainingHours}h ${remainingMinutes}m`;
+    function updateMessage(hours, minutes, day) {
+        if (day >= 1 && day <= 3 || (day === 0 && hours >= 21) || (day === 4 && hours < 4)) {
+            return "Closed until Thursday. See you then!";
+        } else if (hours >= 4 && hours < 17) {
+            return "Getting ready for tonight. See you soon!"
+        } else if (hours >= 17 && hours < 21) {
+            return "We're open. Come on in!"
         } else {
-            return "We are currently closed. See you on Thursday!"
+            return "Done for the day! Come back tomorrow!"
         }
     }
     function updateTimeDisplay() {
-        estTime = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' }));
+        estTime = new Date(new Date().toLocaleString('en-US', { timeZone: 'Asia/Riyadh' }));
+        console.log(estTime);
         const hours = estTime.getHours();
         const minutes = estTime.getMinutes();
         const day = estTime.getDay();
 
         // Calculate all time-based states from single estTime
-        isOpen = hours >= 17 && hours < 21 && day >= 4;
+        isOpen = hours >= 17 && hours < 21 && (day >= 4 || day === 0);
+        //arc shows when it is not 1am to 9am
         showArc = !(hours >= 1 && hours < 9);
         hourRotation = ((hours % 12) * 30) + (minutes * 0.5);
         minuteRotation = minutes * 6;
 
-        if (!isOpen) {
-            closedMessage = updateClosedMessage(hours, minutes, day);
+
+        statusMessage = updateMessage(hours, minutes, day);
         }
-    }
 
     function syncWithRealClock() {
         const now = new Date();
@@ -67,7 +69,7 @@
         height="100%"
     >
         <!-- Clock face -->
-        <circle cx="100" cy="100" r="90" fill="#f7f2de" stroke="#002c2e" stroke-width="4"/>
+        <circle cx="100" cy="100" r="90" fill="#F7F7F7" stroke="#002c2e" stroke-width="4"/>
         
         <!-- Business hours arc (5PM-9PM) -->
         {#if showArc}
@@ -95,7 +97,7 @@
             >{i === 0 ? '12' : i}</text>
         {/each}
 
-        <!-- Hour hand -->
+
         <line 
             x1="100"
             y1="100"
@@ -109,7 +111,7 @@
             class="hour-hand"
         />
         
-        <!-- Minute hand -->
+
         <line 
             x1="100"
             y1="100"
@@ -127,11 +129,7 @@
 
     </svg>
     <div class="status-indicator" class:open={isOpen}>
-        {#if isOpen}
-            Open
-        {:else}
-            <span class="status-message">{closedMessage}</span>
-        {/if}
+        <span class="status-message">{statusMessage}</span>
     </div>
 </div>
 
@@ -154,7 +152,6 @@
 
     .status-indicator {
         position: absolute;
-        bottom: -2rem;
         left: 50%;
         transform: translateX(-50%);
         font-family: "Apfel Grotezk";
