@@ -29,9 +29,21 @@ const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY;
         align-items: center;
         justify-content: center;
         gap: 4rem;
-        margin: 0 auto;
-        max-width: 900px;
-        padding: 0 1rem;
+
+        width: 100%;
+        margin: 0;
+        /* max-width: 950px; */
+    }
+
+    .map {
+        padding: 8rem 0;
+        background-color: #EFE3B4;
+        border-top: 1px solid #002c2e20;
+        border-bottom: 1px solid #002c2e20;
+    }
+
+    .clock {
+        padding-bottom: 8rem;
     }
 
     .info-text {
@@ -62,10 +74,6 @@ const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY;
         transition: transform 0.2s ease;
     }
 
-    .map-wrapper:hover {
-        transform: translateY(-20px);  /* Subtle interaction */
-    }
-
     .map-wrapper iframe {
         width: 100%;
         height: 100%;
@@ -75,7 +83,7 @@ const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY;
     .hours-text {
         text-align: left;
         justify-content: center;
-        width: 70%
+        width: fit-content
     }
 
     .hours-text > p span {
@@ -94,26 +102,6 @@ const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY;
         animation: pulse 2s ease-in-out infinite;
     }
 
-    .custom-shape-divider-bottom-1746665334 {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        overflow: hidden;
-        line-height: 0;
-    }
-
-    .custom-shape-divider-bottom-1746665334 svg {
-        position: relative;
-        display: block;
-        width: calc(153% + 1.3px);
-        height: 60px;
-    }
-
-    .custom-shape-divider-bottom-1746665334 .shape-fill {
-        fill: #efe3b4;
-    }
-
     .hero {
         position: relative;
         background-color: #f7f2de;  /* Match your background color */
@@ -121,9 +109,13 @@ const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY;
     }
 
     .home-content-wrapper {
-        background-color: #efe3b4;
+        /* background-color: #efe3b4; */
         width: 100%;
-        padding: 4rem 0;
+        /* padding: 4rem 0; */
+    }
+
+    BusinessClock {
+        transform: translateY(-20px);  /* Subtle interaction */
     }
 
     @keyframes pulse {
@@ -138,12 +130,12 @@ const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY;
         }
         
         .info-section {
+            
             flex-direction: column;
             text-align: center;
             width: 100%; /* Changed from 100% */
             gap: 1rem;
             align-items: center;
-            padding: 0;  /* Remove padding */
         }
 
         .info-text {
@@ -216,15 +208,15 @@ const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY;
                 id="logo" 
                 transition:name="logo"
             />
-            <div class="custom-shape-divider-bottom-1746665334">
+            <!-- <div class="custom-shape-divider-bottom-1746665334">
                 <svg data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none">
                     <path d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z" class="shape-fill"></path>
                 </svg>
-            </div>
+            </div> -->
         </div>
 
         <div class="home-content-wrapper">
-            <div class="info-section">
+            <div class="info-section map">
                 <div class="info-text">
                     <h2>WE'RE AT</h2>
                     <p>742 Main St.</p>
@@ -244,7 +236,7 @@ const API_KEY = import.meta.env.PUBLIC_GOOGLE_MAPS_API_KEY;
                 </div>
             </div>
 
-            <div class="info-section">
+            <div class="info-section clock">
                 <BusinessClock client:load size={400}/>
                 <div class="info-text hours-text">
                     <h2>OUR HOURS</h2>
